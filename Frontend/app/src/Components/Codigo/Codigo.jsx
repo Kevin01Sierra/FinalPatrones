@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './codigo.css';
 import { useNavigate } from 'react-router-dom';
 
-export default function Codigo({ isOpen, UserId }) {
+function Codigo({ isOpen, UserId }) {
     if (!isOpen) return null;
 
     const [code, setCode] = useState('');
@@ -51,3 +51,5 @@ export default function Codigo({ isOpen, UserId }) {
         </div>
     );
 }
+
+export default Codigo

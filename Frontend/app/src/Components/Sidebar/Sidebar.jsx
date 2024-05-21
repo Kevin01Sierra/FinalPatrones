@@ -45,11 +45,11 @@ function Sidebar({vista, handleClick}) {
         <div id='botones'>
             {vista === 'Gerente' && (
                 <>
-                    <SidebarButton URL_BTN='/Impacto' nombre='Impacto' URL_IMG={URL_IMPACTO}></SidebarButton>
-                    <SidebarButton URL_BTN='/verComo' nombre='Ver como' URL_IMG={URL_VER_COMO}></SidebarButton>
-                    <SidebarButton URL_BTN='/Cuentas' nombre='Cuentas' URL_IMG={URL_CUENTAS}></SidebarButton>
-                    <SidebarButton URL_BTN='/Modificaciones' nombre='Modificaciones' URL_IMG={URL_MODIFICACIONES}></SidebarButton>
-                    <SidebarButton URL_BTN='/Trazabilidad' nombre='Trazabilidad' URL_IMG={URL_TRAZABILIDAD}></SidebarButton>
+                    <SidebarButton URL_BTN='http://localhost:5173/gerente/Impacto' nombre='Impacto' URL_IMG={URL_IMPACTO}></SidebarButton>
+                    <SidebarButton URL_BTN='http://localhost:5173/gerente/verComo' nombre='Ver como' URL_IMG={URL_VER_COMO}></SidebarButton>
+                    <SidebarButton URL_BTN='http://localhost:5173/gerente/Cuentas' nombre='Cuentas' URL_IMG={URL_CUENTAS}></SidebarButton>
+                    <SidebarButton URL_BTN='http://localhost:5173/gerente/Modificaciones' nombre='Modificaciones' URL_IMG={URL_MODIFICACIONES}></SidebarButton>
+                    <SidebarButton URL_BTN='http://localhost:5173/gerente/Trazabilidad' nombre='Trazabilidad' URL_IMG={URL_TRAZABILIDAD}></SidebarButton>
                 </>
             )}
             {vista === 'Administrador' && (
@@ -61,7 +61,7 @@ function Sidebar({vista, handleClick}) {
             )}
         </div>
         <div id='logout'>
-            <SidebarButton URL_BTN='/logout' nombre='Cerrar sesión' URL_IMG={URL_CERRAR_SESION}></SidebarButton>
+            <SidebarButton URL_BTN='http://localhost:5173/login' nombre='Cerrar sesión' URL_IMG={URL_CERRAR_SESION}></SidebarButton>
         </div>
     </div>
   );

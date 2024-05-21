@@ -4,7 +4,7 @@ import './SidebarButton.css'
 function SidebarButton({URL_BTN, URL_IMG, nombre}) {
 
   const handleClick = () => {
-    window.location.href = window.location.href + URL_BTN;
+    window.location.href = URL_BTN;
   };
 
   return (

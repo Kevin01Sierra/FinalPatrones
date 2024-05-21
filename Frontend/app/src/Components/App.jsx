@@ -17,19 +17,31 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/login" element={<LogIn />} />
+        {/*Listos*/}
         <Route path="/" element={<LandingPage />} />
-        <Route path="/user/:userId" element={<Cliente />} />
+        <Route path="/login" element={<LogIn />} />
         <Route path="/registro" element={<Registro />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/gerente" element={<Gerente />} />
-        <Route path="/tarjeta" element={<TarjetaCredito />} />
-        <Route path="/codigo" element={<Codigo />} />
+
+        {/*Mejorables*/}
+        <Route path="/user/:userId" element={<Cliente />} />      
+        
+        {/*Por trabajar*/}
+        <Route path="/Gerente/Impacto" element={<Impacto />} />
+        <Route path="/gerente/VerComo" element={<Impacto />} />
+        <Route path="/gerente/Cuentas" element={<Impacto />} />
         <Route path="/gerente/CrearParqueadero" element={<CrearParqueadero />} />        
         <Route path="/gerente/CrearCiudad" element={<CrearCiudad />} />
-        <Route path="/gerente/Impacto" element={<Impacto />} />
+        
         <Route path="/gerente/GerenteParqueaderos" element={<GerenteParqueaderos />} />
         <Route path="/admin/Administracion" element={<ParkingManagement />} />
+
+        {/*Prescindibles*/}
+        <Route path="/gerente" element={<Gerente />} />
+        <Route path="/admin" element={<Admin />} />
+
+        {/*No funcionales*/}
+        <Route path="/tarjeta" element={<TarjetaCredito />} />
+        <Route path="/codigo" element={<Codigo />} />
       </Routes>
     </Router>
   );
