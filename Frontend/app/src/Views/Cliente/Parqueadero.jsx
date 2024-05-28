@@ -11,6 +11,8 @@ export default function Parqueadero({ isOpen, onClose, idParqueadero, name, cupo
   const [selectedDateTime, setSelectedDateTime] = useState(null);
   const [reservationHours, setReservationHours] = useState(1);
   const [isPagoOpen, setIsPagoOpen] = useState(false);
+  const [formattedDateTime, setFormattedDateTime] = useState('');
+
   const tarjetaId = localStorage.getItem('tarjetaId');
   const usuarioId = localStorage.getItem('usuarioId');
 
@@ -20,6 +22,8 @@ export default function Parqueadero({ isOpen, onClose, idParqueadero, name, cupo
 
   const handleDateTimeChange = (date) => {
     setSelectedDateTime(date);
+    const formatted = formatDateTime(date);
+    setFormattedDateTime(formatted);
   };
 
   const handleHoursChange = (e) => {
@@ -40,16 +44,13 @@ export default function Parqueadero({ isOpen, onClose, idParqueadero, name, cupo
       toast.error('Por favor, seleccione el tipo de vehículo y la fecha/hora de llegada.');
       return;
     }
-
-    const formattedDateTime = formatDateTime(selectedDateTime);
-
+    console.log('Formatted DateTime:', formattedDateTime);
     setIsPagoOpen(true);
   };
 
   const filterPassedTime = (time) => {
     const currentDate = new Date();
     const selectedDate = new Date(time);
-
     return currentDate.getTime() < selectedDate.getTime();
   };
 
@@ -125,12 +126,11 @@ export default function Parqueadero({ isOpen, onClose, idParqueadero, name, cupo
             usuarioId: parseInt(usuarioId, 10),
             idParqueadero: parseInt(idParqueadero, 10),
             vehiculoId: parseInt(selectedVehicle, 10),
-            hora_llegada: formatDateTime(selectedDateTime),
+            hora_llegada: formattedDateTime,
             horas: parseInt(reservationHours, 10)
           }} 
         />
       </div>
-      
     </div>
   );
 }

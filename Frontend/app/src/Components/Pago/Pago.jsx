@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Pago.css';
-import Factura from '../Factura/Factura';
+import Factura from '../Factura/Factura'; // Asegúrate de que la ruta sea correcta
 
 export default function Pago({ isOpen, onClose, data }) {
+    const { idParqueadero, vehiculoId, hora_llegada, horas } = data;
     const [precio, setPrecio] = useState(null);
     const [tarjetas, setTarjetas] = useState([]);
     const [selectedTarjeta, setSelectedTarjeta] = useState('');
     const [isFacturaOpen, setIsFacturaOpen] = useState(false);
     const [facturaData, setFacturaData] = useState(null);
+    const usuarioId = localStorage.getItem('userId');
 
     useEffect(() => {
         if (isOpen && data) {
@@ -21,9 +23,9 @@ export default function Pago({ isOpen, onClose, data }) {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            parqueadero_fk: data.idParqueadero,
-                            vehiculo_fk: data.vehiculoId,
-                            horas: data.horas,
+                            parqueadero_fk: idParqueadero,
+                            vehiculo_fk: vehiculoId,
+                            horas: horas,
                         }),
                     });
                     const result = await response.json();
@@ -38,8 +40,6 @@ export default function Pago({ isOpen, onClose, data }) {
             };
 
             const fetchTarjetas = async () => {
-                const usuarioId = localStorage.getItem('userId');
-                console.log(usuarioId);
                 try {
                     const response = await fetch('http://localhost:3241/tarjetaUsuario', {
                         method: 'POST',
@@ -63,7 +63,7 @@ export default function Pago({ isOpen, onClose, data }) {
             fetchTarifa();
             fetchTarjetas();
         }
-    }, [isOpen, data]);
+    }, [isOpen, data, idParqueadero, vehiculoId, horas, usuarioId]);
 
     const handleTarjetaChange = (e) => {
         setSelectedTarjeta(e.target.value);
@@ -73,6 +73,8 @@ export default function Pago({ isOpen, onClose, data }) {
         setPrecio(null);
         setTarjetas([]);
         setSelectedTarjeta('');
+        setIsFacturaOpen(false);
+        setFacturaData(null);
         onClose();
     };
 
@@ -85,30 +87,32 @@ export default function Pago({ isOpen, onClose, data }) {
                 },
                 body: JSON.stringify({
                     tarjetaId: selectedTarjeta,
-                    usuarioId: data.usuarioId,
-                    parqueaderoId: data.idParqueadero,
-                    vehiculoId: data.vehiculoId,
-                    hora_llegada: data.hora_llegada,
-                    horas: data.horas,
+                    usuarioId: usuarioId,
+                    parqueaderoId: idParqueadero,
+                    vehiculoId: vehiculoId,
+                    hora_llegada: hora_llegada,
+                    horas: horas,
                 }),
             });
 
             const result = await response.json();
             if (response.ok) {
                 toast.success(`Cupo reservado con éxito. Código: ${result.data.codigo}`);
+                console.log(result)
                 setFacturaData({
                     codigo: result.data.codigo,
-                    horaLlegada: data.hora_llegada,
-                    vehiculo: data.vehiculoId,
-                    parqueadero: data.idParqueadero,
-                    ciudad: 'Ciudad Ejemplo', 
-                    horasPedidas: data.horas,
+                    horaLlegada: hora_llegada,
+                    vehiculo: vehiculoId,
+                    parqueadero: idParqueadero,
+                    ciudad: 'Ciudad Ejemplo',
+                    horasPedidas: horas,
                 });
                 setIsFacturaOpen(true);
             } else {
                 toast.error(result.msg || 'Error al reservar el cupo');
             }
         } catch (error) {
+            console.error('Error:', error);
             toast.error('Error al reservar el cupo, intente nuevamente');
         }
     };
