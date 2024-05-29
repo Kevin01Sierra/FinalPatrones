@@ -48,7 +48,7 @@ export default function FinalizarReserva({ isOpen, onClose }) {
         <div className="reservaCupoOff-backdrop">
             <div className="reservaCupoOff-container">
                 <ToastContainer />
-                <h1>Ocupar Cupo</h1>
+                <h1>Finalizar Reserva</h1>
                 <h2>{nombre}</h2>
                 <div className="reservaCupoOff-cupos">
                     <input 

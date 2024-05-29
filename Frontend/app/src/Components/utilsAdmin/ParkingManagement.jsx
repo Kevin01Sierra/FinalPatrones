@@ -96,6 +96,9 @@ const ParkingManagement = () => {
             <ReservarCupoOnline
               isOpen={isReservaONOpen}
               onClose={() => setReservaONOpen(false)} />
+            <FinalizarReserva
+              isOpen={isFinalizarReservaOpen}
+              onClose={() => setFinalizarReservaOpen(false)} />
           </div>
         ) : (
           <p>Loading...</p>
