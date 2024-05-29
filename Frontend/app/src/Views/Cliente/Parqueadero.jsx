@@ -8,6 +8,7 @@ import Pago from '../../Components/Pago/Pago';
 
 export default function Parqueadero({ isOpen, onClose, idParqueadero, name, cupoCarro, cupoMoto, cupoBici, tipo }) {
   const [selectedVehicle, setSelectedVehicle] = useState('');
+  const [selectedVehicleType, setSelectedVehicleType] = useState('');
   const [selectedDateTime, setSelectedDateTime] = useState(null);
   const [reservationHours, setReservationHours] = useState(1);
   const [isPagoOpen, setIsPagoOpen] = useState(false);
@@ -35,7 +36,11 @@ export default function Parqueadero({ isOpen, onClose, idParqueadero, name, cupo
   }, [cupoCarro, cupoMoto, cupoBici]);
 
   const handleVehicleChange = (e) => {
-    setSelectedVehicle(e.target.value);
+    const selectedOption = e.target.value;
+    const selectedType = vehicleTypes.find(type => type.id === parseInt(selectedOption, 10)).tipo.toLowerCase();
+
+    setSelectedVehicle(selectedOption);
+    setSelectedVehicleType(selectedType);
   };
 
   const handleDateTimeChange = (date) => {
@@ -58,19 +63,24 @@ export default function Parqueadero({ isOpen, onClose, idParqueadero, name, cupo
   };
 
   const handleSubmit = () => {
-    console.log('vehiculoseleccionado',selectedVehicle);
-    if (selectedVehicle.toLowerCase().includes('1') && cupoCarro < 1) {
+    if (!selectedVehicle || !selectedDateTime) {
+      toast.error('Por favor, seleccione el tipo de vehículo y la fecha/hora de llegada.');
+      return;
+    }
+
+    if (selectedVehicleType.includes('carro') && cupoCarro < 1) {
       toast.error('No hay cupos disponibles para carro.');
       return;
     }
-    if (selectedVehicle.toLowerCase().includes('2') && cupoMoto < 1) {
+    if (selectedVehicleType.includes('moto') && cupoMoto < 1) {
       toast.error('No hay cupos disponibles para motos.');
       return;
     }
-    if (selectedVehicle.toLowerCase().includes('3') && cupoBici < 1) {
+    if (selectedVehicleType.includes('bici') && cupoBici < 1) {
       toast.error('No hay cupos disponibles para bicicletas.');
       return;
     }
+
     setIsPagoOpen(true);
   };
 
@@ -82,6 +92,7 @@ export default function Parqueadero({ isOpen, onClose, idParqueadero, name, cupo
 
   const handleClose = () => {
     setSelectedVehicle('');
+    setSelectedVehicleType('');
     setSelectedDateTime(null);
     setReservationHours(1);
     setIsPagoOpen(false);
@@ -153,8 +164,10 @@ export default function Parqueadero({ isOpen, onClose, idParqueadero, name, cupo
             idParqueadero: parseInt(idParqueadero, 10),
             vehiculoId: parseInt(selectedVehicle, 10),
             hora_llegada: formattedDateTime,
-            horas: parseInt(reservationHours, 10)
-          }} 
+            horas: parseInt(reservationHours, 10),
+          }}
+          nombreParqueadero={name}
+          tipoVehiculo={selectedVehicleType}
         />
       </div>
     </div>

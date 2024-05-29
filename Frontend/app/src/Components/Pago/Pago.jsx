@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './Pago.css';
 import Factura from '../Factura/Factura'; // Asegúrate de que la ruta sea correcta
 
-export default function Pago({ isOpen, onClose, data }) {
+export default function Pago({ isOpen, onClose, data,nombreParqueadero ,tipoVehiculo}) {
     const { idParqueadero, vehiculoId, hora_llegada, horas } = data;
     const [precio, setPrecio] = useState(null);
     const [tarjetas, setTarjetas] = useState([]);
@@ -123,7 +123,7 @@ export default function Pago({ isOpen, onClose, data }) {
         <div className="pago-backdrop">
             <div className="pago-container">
                 <ToastContainer />
-                <h2>Valor a pagar : {precio} $</h2>
+                <h2>Valor a pagar :$ {precio} </h2>
                 <div className="pago-tarjeta">
                     <label>Seleccionar tarjeta de crédito:</label>
                     <select value={selectedTarjeta} onChange={handleTarjetaChange}>
@@ -136,7 +136,7 @@ export default function Pago({ isOpen, onClose, data }) {
                 </div>
                 <button className="pago-button" onClick={handlePago}>PAGAR</button>
                 <button className="cerrar" onClick={handlePagoClose}>Cerrar</button>
-                {isFacturaOpen && <Factura data={facturaData} />}
+                {isFacturaOpen && <Factura data={facturaData} nombreParqueadero={nombreParqueadero}  tipoVehiculo={tipoVehiculo}/>}
             </div>
         </div>
     );
