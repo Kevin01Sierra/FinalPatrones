@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,9 +12,27 @@ export default function Parqueadero({ isOpen, onClose, idParqueadero, name, cupo
   const [reservationHours, setReservationHours] = useState(1);
   const [isPagoOpen, setIsPagoOpen] = useState(false);
   const [formattedDateTime, setFormattedDateTime] = useState('');
+  const [vehicleTypes, setVehicleTypes] = useState([]);
 
   const tarjetaId = localStorage.getItem('tarjetaId');
   const usuarioId = localStorage.getItem('usuarioId');
+
+  useEffect(() => {
+    // Fetch vehicle types from the API
+    fetch('http://localhost:3241/obtenerVehiculos')
+      .then(response => response.json())
+      .then(data => {
+        // Print available slots to console
+        console.log('Cupo Moto:', cupoMoto);
+        console.log('Cupo Carro:', cupoCarro);
+        console.log('Cupo Bici:', cupoBici);
+        setVehicleTypes(data.data);
+      })
+      .catch(error => {
+        console.error('Error fetching vehicle types:', error);
+        toast.error('Error fetching vehicle types');
+      });
+  }, [cupoCarro, cupoMoto, cupoBici]);
 
   const handleVehicleChange = (e) => {
     setSelectedVehicle(e.target.value);
@@ -40,11 +58,19 @@ export default function Parqueadero({ isOpen, onClose, idParqueadero, name, cupo
   };
 
   const handleSubmit = () => {
-    if (!selectedVehicle || !selectedDateTime) {
-      toast.error('Por favor, seleccione el tipo de vehículo y la fecha/hora de llegada.');
+    console.log('vehiculoseleccionado',selectedVehicle);
+    if (selectedVehicle.toLowerCase().includes('1') && cupoCarro < 1) {
+      toast.error('No hay cupos disponibles para carro.');
       return;
     }
-    console.log('Formatted DateTime:', formattedDateTime);
+    if (selectedVehicle.toLowerCase().includes('2') && cupoMoto < 1) {
+      toast.error('No hay cupos disponibles para motos.');
+      return;
+    }
+    if (selectedVehicle.toLowerCase().includes('3') && cupoBici < 1) {
+      toast.error('No hay cupos disponibles para bicicletas.');
+      return;
+    }
     setIsPagoOpen(true);
   };
 
@@ -78,9 +104,9 @@ export default function Parqueadero({ isOpen, onClose, idParqueadero, name, cupo
           <div className="Select-Parqueadero">
             <select id="vehicle" value={selectedVehicle} onChange={handleVehicleChange}>
               <option value="">Seleccione un tipo de vehículo</option>
-              <option value="1">Moto</option>
-              <option value="2">Carro</option>
-              <option value="3">Bicicleta</option>
+              {vehicleTypes.map(type => (
+                <option key={type.id} value={type.id} disabled={type.distable}>{type.tipo}</option>
+              ))}
             </select>
           </div>
           <div className="Select-DateTime">
