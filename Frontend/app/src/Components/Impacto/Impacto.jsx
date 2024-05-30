@@ -12,8 +12,8 @@ function Impacto() {
   1. consumir los datos del parqueadero específico y generar las graficas.
   */
 
-  const URL_CIUDADES = "http://localhost:3241/obtenerCiudades"
-  const URL_PARQUEADEROS = "http://localhost:3241/parqueaderoCiudadBasico"
+  const URL_CIUDADES = "https://backend-parqueadero-production.up.railway.app/obtenerCiudades"
+  const URL_PARQUEADEROS = "https://backend-parqueadero-production.up.railway.app/parqueaderoCiudadBasico"
   const [datosCiudades, setDatosCiudades] = useState(null);
   const [ciudadSeleccionada, setCiudadSeleccionada] = useState("");
   const [visibilidadSegundoSelect, setVisibilidadSegundoSelect] = useState(false);

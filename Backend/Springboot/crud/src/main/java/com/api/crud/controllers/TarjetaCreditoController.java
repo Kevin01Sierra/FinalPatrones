@@ -1,4 +1,5 @@
 package com.api.crud.controllers;
+
 import java.util.Map;
 import java.util.Optional;
 
@@ -34,9 +35,9 @@ public class TarjetaCreditoController {
     @Autowired
     private IEmailService emailService;
 
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/guardarTarjeta")
-    public Map<String, Object> guardarTarjeta(@RequestBody TarjetaRequest tarjeta) throws MessagingException{
+    public Map<String, Object> guardarTarjeta(@RequestBody TarjetaRequest tarjeta) throws MessagingException {
         TarjetaCreditoModel tarjetaCredito = new TarjetaCreditoModel();
         tarjetaCredito.setFecha_creacion(ManejarFechas.obtenerFechaActual());
         tarjetaCredito.setNumero(tarjeta.getNumero());
@@ -55,12 +56,11 @@ public class TarjetaCreditoController {
         return Map.of("data", tarjetaCredito, "msg", "Tarjeta agregada");
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/tarjetaUsuario")
     public Map<String, Object> tarjetaUsuario(@RequestBody TarjetaRequest tarjeta) {
         Vector<TarjetaCreditoModel> tarjetas = tarjetaCreditoService.obtenerTarjetas(tarjeta.getUsuario());
         return Map.of("data", tarjetas, "msg", "OK");
     }
-    
 
 }

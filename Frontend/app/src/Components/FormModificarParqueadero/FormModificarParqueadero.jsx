@@ -4,10 +4,10 @@ import React, { useState, useEffect } from 'react';
 import './FormModificarParqueadero.css'
 
 function FormModificarParqueadero() {
-    const URL_CIUDADES = "http://localhost:3241/obtenerCiudades";
-    const URL_PARQUEADEROS = "http://localhost:3241/parqueaderoCiudadBasico";
-    const URL_PARQUEADERO_ESPECIFICO = "http://localhost:3241/obtenerParqueadero";
-    const URL_MODIFICAR_PARQUEADERO = "http://localhost:3241/modificarParqueadero";
+    const URL_CIUDADES = "https://backend-parqueadero-production.up.railway.app/obtenerCiudades";
+    const URL_PARQUEADEROS = "https://backend-parqueadero-production.up.railway.app/parqueaderoCiudadBasico";
+    const URL_PARQUEADERO_ESPECIFICO = "https://backend-parqueadero-production.up.railway.app/obtenerParqueadero";
+    const URL_MODIFICAR_PARQUEADERO = "https://backend-parqueadero-production.up.railway.app/modificarParqueadero";
     /*
     se necesita el endpoint para modificar el parqueadero, el fetch ya está falta reemplazar
     la URL en la constante de arriba
