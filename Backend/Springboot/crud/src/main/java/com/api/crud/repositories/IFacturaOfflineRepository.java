@@ -11,5 +11,5 @@ import com.api.crud.models.FacturaOfflineModel;
 public interface IFacturaOfflineRepository extends JpaRepository<FacturaOfflineModel, Long> {
 
     @Query("SELECT SUM(f.valorPagado) FROM FacturaOfflineModel f JOIN VehiculoModel v ON f.vehiculoId = v.id WHERE f.parqueaderoId = :parqueaderoId AND v.tipo = :vehiculoTipo")
-    int sumByParqueaderoIdAndVehiculoTipo(@Param("parqueaderoId") long parqueaderoId, @Param("vehiculoTipo") String vehiculoTipo);
+    Integer sumByParqueaderoIdAndVehiculoTipo(@Param("parqueaderoId") long parqueaderoId, @Param("vehiculoTipo") String vehiculoTipo);
 }

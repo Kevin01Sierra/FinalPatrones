@@ -12,12 +12,13 @@ function Impacto() {
   1. consumir los datos del parqueadero específico y generar las graficas.
   */
 
-  const URL_CIUDADES = "http://localhost:3241/obtenerCiudades"
-  const URL_PARQUEADEROS = "http://localhost:3241/parqueaderoCiudadBasico"
+  const URL_CIUDADES = "https://backend-parqueadero-production.up.railway.app/obtenerCiudades"
+  const URL_PARQUEADEROS = "https://backend-parqueadero-production.up.railway.app/parqueaderoCiudadBasico"
   const [datosCiudades, setDatosCiudades] = useState(null);
   const [ciudadSeleccionada, setCiudadSeleccionada] = useState("");
   const [visibilidadSegundoSelect, setVisibilidadSegundoSelect] = useState(false);
   const [datosParqueaderos, setDatosParqueaderos] = useState(null);
+  const [idParqueaderoSeleccionado, setIdParqueaderoSeleccionado] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +60,7 @@ function Impacto() {
   }
 
   const handleChangeParking = async (event) =>{
-    
+    setIdParqueaderoSeleccionado(event.target.value);
   }
 
   return (
@@ -90,8 +91,13 @@ function Impacto() {
           )}
 
         </div>
+        
+        {idParqueaderoSeleccionado !== null ? (
+        <Chart idParqueadero={idParqueaderoSeleccionado}></Chart>
+        ) : (
         <Chart></Chart>
-      </div>
+        )}
+      </div>{console.log(idParqueaderoSeleccionado)}
     </>
   );
 }

@@ -10,6 +10,6 @@ import com.api.crud.models.FacturaModel;
 @Repository
 public interface IFacturaRepository extends JpaRepository<FacturaModel, Long> {
 
-    @Query("SELECT SUM(f.valorPagado) FROM FacturaModel f JOIN VehiculoModel v on f.vehiculoId = v.id WHERE f.parqueaderoId = :parqueaderoId AND v.tipo = :vehiculoTipo")
-    int sumByParqueaderoIdAndVehiculoTipo(@Param("parqueaderoId") long parqueaderoId, @Param("vehiculoTipo") String vehiculoTipo);
+    @Query("SELECT SUM(f.valorTotal) FROM FacturaModel f JOIN VehiculoModel v on f.vehiculoId = v.id WHERE f.parqueaderoId = :parqueaderoId AND v.tipo = :vehiculoTipo")
+    Integer sumByParqueaderoIdAndVehiculoTipo(@Param("parqueaderoId") long parqueaderoId, @Param("vehiculoTipo") String vehiculoTipo);
 }

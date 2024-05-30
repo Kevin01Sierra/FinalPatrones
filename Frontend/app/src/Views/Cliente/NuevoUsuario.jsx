@@ -10,7 +10,7 @@ function NuevoUsuario() {
   const [isParqueaderoOpen, setParqueaderoOpen] = useState(false);
   const [selectedParqueadero, setSelectedParqueadero] = useState({});
   const [selectedCity, setSelectedCity] = useState('');
-  const [mapKey, setMapKey] = useState(0); // Estado para forzar la recarga del mapa
+  const [mapKey, setMapKey] = useState(0);
   const [cities, setCities] = useState([]);
   const [cityCoordinates, setCityCoordinates] = useState({});
   const [parqueaderos, setParqueaderos] = useState([]);
@@ -23,7 +23,6 @@ function NuevoUsuario() {
   };
 
   useEffect(() => {
-    // Fetch city data
     const fetchCities = async () => {
       try {
         const requestOptions = {
@@ -31,11 +30,10 @@ function NuevoUsuario() {
           redirect: "follow"
         };
 
-        const response = await fetch("http://localhost:3241/obtenerCiudades", requestOptions);
+        const response = await fetch("https://backend-parqueadero-production.up.railway.app/obtenerCiudades", requestOptions);
         const result = await response.json();
         setCities(result.data);
         
-        // Set city coordinates for use in the map
         const coordinates = {};
         result.data.forEach(city => {
           coordinates[city.nombre.toLowerCase()] = [city.latitud, city.longitud];
@@ -65,10 +63,9 @@ function NuevoUsuario() {
         redirect: "follow"
       };
 
-      const response = await fetch("http://localhost:3241/parqueaderoCiudad", requestOptions);
+      const response = await fetch("https://backend-parqueadero-production.up.railway.app/parqueaderoCiudad", requestOptions);
       const result = await response.json();
 
-      // Map the colors
       const mappedParqueaderos = result.data.map(parqueadero => {
         return {
           ...parqueadero,
@@ -87,29 +84,62 @@ function NuevoUsuario() {
       case 'NEGRO':
         return `hsl(48, 100%, 0%, 1)`;
       case 'VERDE':
-        return 'hsl(86, 100%, 43%, 1'; // Green
+        return 'hsl(86, 100%, 43%, 1';
       case 'AMARILLO':
-        return 'hsl(48, 100%, 48%, 1)'; // Yellow
+        return 'hsl(48, 100%, 48%, 1)'; 
       default:
-        return 'hsl(0deg, 0%, 50%)'; // Default to gray
+        return 'hsl(0deg, 0%, 50%)'; 
     }
   };
 
   const handleCityChange = (e) => {
     const selectedCityName = e.target.value;
     setSelectedCity(selectedCityName);
-    setMapKey(prevKey => prevKey + 1); // Cambiar la clave del mapa para forzar la recarga
+    setMapKey(prevKey => prevKey + 1);
 
-    // Fetch parqueaderos for the selected city
     const selectedCity = cities.find(city => city.nombre.toLowerCase() === selectedCityName.toLowerCase());
     if (selectedCity) {
       fetchParqueaderos(selectedCity.id);
     }
   };
 
+  const fetchParqueaderoDetails = async (parqueaderoId) => {
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      const raw = JSON.stringify({
+        "parqueadero_id": parqueaderoId
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+      };
+
+      const response = await fetch("https://backend-parqueadero-production.up.railway.app/obtenerParqueadero", requestOptions);
+      const result = await response.json();
+      
+      const { data } = result;
+
+      const updatedParqueadero = {
+        ...data,
+        cupo_disponible_carro: data.cupo_carro_total - data.cupo_uti_carro,
+        cupo_disponible_moto: data.cupo_moto_total - data.cupo_uti_moto,
+        cupo_disponible_bici: data.cupo_bici_total - data.cupo_uti_bici
+      };
+
+      setSelectedParqueadero(updatedParqueadero);
+      setParqueaderoOpen(true);
+    } catch (error) {
+      console.error('Error fetching parqueadero details:', error);
+    }
+  };
+
   const handleMarkerClick = (parqueadero) => {
-    setSelectedParqueadero(parqueadero);
-    setParqueaderoOpen(true);
+    fetchParqueaderoDetails(parqueadero.id);
   };
 
   return (
@@ -143,7 +173,6 @@ function NuevoUsuario() {
           </div>
         </header>
 
-        
         <div className='contenedor-mapa'>
           <div className='city-select'>
             <label htmlFor="city">Selecciona una ciudad:</label>

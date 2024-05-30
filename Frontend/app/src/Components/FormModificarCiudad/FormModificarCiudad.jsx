@@ -1,8 +1,8 @@
 import React, { useState, useEffect} from 'react';
 
 function FormModificarCiudad() {
-    const URL_CIUDADES = "http://localhost:3241/obtenerCiudades";
-    const URL_MODIFICAR_CIUDAD = "http://localhost:3241/modificarCiudad"
+    const URL_CIUDADES = "https://backend-parqueadero-production.up.railway.app/obtenerCiudades";
+    const URL_MODIFICAR_CIUDAD = "https://backend-parqueadero-production.up.railway.app/modificarCiudad"
     const [datosCiudades, setDatosCiudades] = useState(null);
     const [visibilidadForm, setVisibilidadForm] = useState(false);
     const [idCiudadSeleccionada, setIdCiudadSeleccionada] = useState("");

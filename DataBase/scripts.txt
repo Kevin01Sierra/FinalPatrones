@@ -1,23 +1,24 @@
-INSERT INTO Usuario (Nombre, Identificacion, Contrasena, Correo, Estado, Usuario, Num_intentos, Cod_verificacion, Puntos, Activo) VALUES
-('Juan Perez', '123456789', 'Contrasena1', 'juan.perez@example.com', TRUE, 'juanp', 0, 'ABC123', 100, TRUE),
-('Maria Gomez', '987654321', 'Contrasena2', 'maria.gomez@example.com', TRUE, 'mariag', 0, 'DEF456', 150, TRUE),
-('Carlos Ruiz', '456789123', 'Contrasena3', 'carlos.ruiz@example.com', TRUE, 'carlosr', 0, 'GHI789', 200, TRUE),
-('Ana Torres', '321654987', 'Contrasena4', 'ana.torres@example.com', TRUE, 'anatorres', 0, 'JKL012', 250, TRUE),
-('Luis Fernandez', '654987321', 'Contrasena5', 'luis.fernandez@example.com', TRUE, 'luisf', 0, 'MNO345', 300, TRUE);
+INSERT INTO usuario (Nombre, Identificacion, Contrasena, Correo, Estado, Usuario, Num_intentos, Cod_verificacion) VALUES
+('Juan Perez', '123456789', 'Contrasena1', 'juan.perez@example.com', TRUE, 'juanp', 0, 'ABC123'),
+('Maria Gomez', '987654321', 'Contrasena2', 'maria.gomez@example.com', TRUE, 'mariag', 0, 'DEF456'),
+('Carlos Ruiz', '456789123', 'Contrasena3', 'carlos.ruiz@example.com', TRUE, 'carlosr', 0, 'GHI789'),
+('Ana Torres', '321654987', 'Contrasena4', 'ana.torres@example.com', TRUE, 'anatorres', 0, 'JKL012'),
+('Luis Fernandez', '654987321', 'Contrasena5', 'luis.fernandez@example.com', TRUE, 'luisf', 0, 'MNO345');
 
-INSERT INTO Tarjeta_credito (Numero, Nombre_propietario, CVC, Fecha_vencimiento, Usuario_fk) VALUES
+INSERT INTO `Tarjeta_credito` (`Numero`, `Nombre_propietario`, `CVC`, `Fecha_vencimiento`, `Usuario_fk`) VALUES
 ('4111111111111111', 'Juan Perez', '123', '2025-12-31', 1),
 ('4222222222222222', 'Maria Gomez', '234', '2024-11-30', 2),
 ('4333333333333333', 'Carlos Ruiz', '345', '2026-10-31', 3),
 ('4444444444444444', 'Ana Torres', '456', '2023-09-30', 4),
-('4555555555555555', 'Luis Fernandez', '567', '2025-08-31', 5);
+('4555555555555555', 'Luis Fernandez', '567', '2025-08-31', 5);
+
 
 INSERT INTO Ciudad (Nombre, Longitud, Latitud) VALUES
 ('Bogotá', -74.072092, 4.710989),
 ('Medellín', -75.577034, 6.247637),
 ('Cali', -76.532012, 3.451646),
 ('Barranquilla', -74.796387, 10.968540),
-('Cartagena', -75.479425, 10.391049);
+('Cartagena', -75.479425, 10.91049);
 
 INSERT INTO Tipo_parqueadero (Tipo) VALUES
 ('CUBIERTO'),
@@ -34,32 +35,37 @@ INSERT INTO Parqueadero (Nombre, Cupo_moto_total, Cupo_carro_total, Cupo_bici_to
 ('Parqueadero Norte', 40, 80, 20, 2, 2, -75.577034, 6.247637, 8, 16, 4),
 ('Parqueadero Sur', 30, 60, 15, 3, 3, -76.532012, 3.451646, 6, 12, 3),
 ('Parqueadero Este', 20, 40, 10, 4, 1, -74.796387, 10.968540, 4, 8, 2),
-('Parqueadero Oeste', 25, 50, 12, 5, 2, -75.479425, 10.391049, 5, 10, 2);
+('Parqueadero Oeste', 25, 50, 12, 5, 2, -75.479425, 10.391049, 5, 10, 2);
+
 
 INSERT INTO Cupo (Usuario_fk, Parqueadero_fk, Vehiculo_fk, Pagado, Hora_llegada, Hora_salida, horas_pedidas) VALUES
 (1, 1, 1, TRUE, '2024-05-01 08:00:00', '2024-05-01 10:00:00', 2),
 (2, 2, 2, FALSE, '2024-05-02 09:00:00', '2024-05-02 11:00:00', 2),
 (3, 3, 3, TRUE, '2024-05-03 10:00:00', '2024-05-03 12:00:00', 2),
 (4, 4, 1, FALSE, '2024-05-04 11:00:00', '2024-05-04 13:00:00', 2),
-(5, 5, 2, TRUE, '2024-05-05 12:00:00', '2024-05-05 14:00:00', 2);
+(5, 5, 2, TRUE, '2024-05-05 12:00:00', '2024-05-05 14:00:00', 2);
 
-INSERT INTO Cupo_offline (Parqueadero_fk, Vehiculo_fk, Pagado, Hora_llegada, Hora_salida, Nombre_cliente) VALUES
-(1, 1, TRUE, '2024-05-01 08:00:00', '2024-05-01 10:00:00', 'Pedro Lopez'),
-(2, 2, FALSE, '2024-05-02 09:00:00', '2024-05-02 11:00:00', 'Luisa Martinez'),
-(3, 3, TRUE, '2024-05-03 10:00:00', '2024-05-03 12:00:00', 'Jose Sanchez'),
-(4, 1, FALSE, '2024-05-04 11:00:00', '2024-05-04 13:00:00', 'Andrea Castro'),
-(5, 2, TRUE, '2024-05-05 12:00:00', '2024-05-05 14:00:00', 'Felipe Gomez');
 
-INSERT INTO Factura (Valor_pagado, Cupo_fk, Vehiculo_fk, Parqueadero_fk, Usuario_fk, Tarjeta_credito_fk) VALUES
-(2000.00, 1, 1, 1, 1, 1),
-(1500.00, 2, 2, 2, 2, 2),
-(1000.00, 3, 3, 3, 3, 3),
-(2500.00, 4, 1, 4, 4, 4),
-(1800.00, 5, 2, 5, 5, 5);
+INSERT INTO Cupo_offline (Parqueadero_fk, Vehiculo_fk, Pagado, Hora_llegada, Hora_salida, Fecha_creacion, Activo, Codigo, Estado) VALUES
+(1, 1, TRUE, '2024-05-01 08:00:00', '2024-05-01 10:00:00', CURRENT_TIMESTAMP, TRUE, 'ABC123', 'OCUPADO'),
+(2, 2, FALSE, '2024-05-02 09:00:00', '2024-05-02 11:00:00', CURRENT_TIMESTAMP, TRUE, 'DEF456', 'OCUPADO'),
+(3, 3, TRUE, '2024-05-03 10:00:00', '2024-05-03 12:00:00', CURRENT_TIMESTAMP, TRUE, 'GHI789', 'OCUPADO'),
+(4, 1, FALSE, '2024-05-04 11:00:00', '2024-05-04 13:00:00', CURRENT_TIMESTAMP, TRUE, 'JKL012', 'OCUPADO'),
+(5, 2, TRUE, '2024-05-05 12:00:00', '2024-05-05 14:00:00', CURRENT_TIMESTAMP, TRUE, 'MNO345', 'OCUPADO');
+
+
+INSERT INTO Factura (Valor_ordinario, Valor_extraordinario, Valor_total, Cupo_fk, Vehiculo_fk, Parqueadero_fk, Usuario_fk, Tarjeta_credito_fk) VALUES
+(2000.00, 500.00, 2500.00, 1, 1, 1, 1, 1),
+(1500.00, 300.00, 1800.00, 2, 2, 2, 2, 2),
+(1000.00, 200.00, 1200.00, 3, 3, 3, 3, 3),
+(2500.00, 600.00, 3100.00, 4, 1, 4, 4, 4),
+(1800.00, 400.00, 2200.00, 5, 2, 5, 5, 5);
+
 
 INSERT INTO Factura_offline (Valor_pagado, Cupo_offline_fk, Vehiculo_fk, Parqueadero_fk) VALUES
 (2000.00, 1, 1, 1),
 (1500.00, 2, 2, 2),
 (1000.00, 3, 3, 3),
 (2500.00, 4, 1, 4),
-(1800.00, 5, 2, 5);
+(1800.00, 5, 2, 5);
+

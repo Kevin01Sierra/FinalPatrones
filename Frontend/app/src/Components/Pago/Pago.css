@@ -1,4 +1,4 @@
-.reservaCupoOff-backdrop {
+.pago-backdrop {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,42 +11,40 @@
     z-index: 1000;
 }
 
-.reservaCupoOff-container {
+.pago-container {
     background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1001;
-    width: 40%;
-    max-width: 600px;
-    text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1001;
+  width: 50%;
+  text-align: center;
 }
 
-.reservaCupoOff-container h1 {
+.pago-container h2 {
     color: #333;
     margin-bottom: 20px;
 }
 
-.reservaCupoOff-container h2 {
-    color: #555;
-    margin-bottom: 20px;
-}
-
-.reservaCupoOff-cupos {
+.pago-tarjeta {
     margin: 20px 0;
 }
 
-.reservaCupoOff-cupos input {
+.pago-tarjeta label {
+    display: block;
+    margin-bottom: 10px;
     font-size: 1.2rem;
-    height: 2.5rem;
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-top: 10px;
 }
 
-.reservaCupoOff-continuar {
+.pago-tarjeta select {
+    font-size: 1.2rem;
+    padding: 5px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.pago-button {
     font-size: 1.5rem;
     background-color: #007BFF;
     color: white;
@@ -58,11 +56,11 @@
     margin-top: 20px;
 }
 
-.reservaCupoOff-continuar:hover {
+.pago-button:hover {
     background-color: #0056b3;
 }
 
-.reservaCupoOff-cerrar {
+.cerrar {
     font-size: 1.5rem;
     background-color: rgb(255, 127, 127);
     color: white;
@@ -74,6 +72,6 @@
     margin-top: 20px;
 }
 
-.reservaCupoOff-cerrar:hover {
+.cerrar:hover {
     background-color: rgb(200, 80, 80);
 }

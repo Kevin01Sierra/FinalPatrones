@@ -3,9 +3,11 @@ import './ParkingManagement.css'; // Importar los estilos CSS
 import Sidebar from '../Sidebar/Sidebar';
 import ReservaCupoOff from './ReservarCupos/ReservarCupoOffline/ReservaCupoOff';
 import ReservarCupoOnline from './ReservarCupos/ReservarCupoOnline/ReservarCupoOnline';
+import FinalizarReserva from './ReservarCupos/FinalizarReserva/FinalizarReserva';
+
 const fetchParkingLot = async (parkingLotId) => {
   try {
-    const response = await fetch('http://localhost:3241/obtenerParqueadero', {
+    const response = await fetch('https://backend-parqueadero-production.up.railway.app/obtenerParqueadero', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -25,6 +27,7 @@ const ParkingManagement = () => {
   const [disponible, setDisponible] = useState(true);
   const [isReservaOpen, setReservaOpen] = useState(false);
   const [isReservaONOpen, setReservaONOpen] = useState(false);
+  const [isFinalizarReservaOpen, setFinalizarReservaOpen] = useState(false);
   
   useEffect(() => {
     const fetchData = async () => {
@@ -57,7 +60,7 @@ const ParkingManagement = () => {
 
         <button className="button-parkingManagement blue-parkingManagement" onClick={() => setReservaOpen(true)}>Reservar cupo OFFLINE</button>
         <button className="button-parkingManagement blue-parkingManagement" onClick={() => setReservaONOpen(true)}>Reservar cupo ONLINE</button>
-        <button className="button-parkingManagement blue-parkingManagement" onClick={() => setReservaOpen(true)}>Finalizar cupo </button>
+        <button className="button-parkingManagement blue-parkingManagement" onClick={() => setFinalizarReservaOpen(true)}>Finalizar cupo </button>
 
       </div>
 
@@ -93,6 +96,9 @@ const ParkingManagement = () => {
             <ReservarCupoOnline
               isOpen={isReservaONOpen}
               onClose={() => setReservaONOpen(false)} />
+            <FinalizarReserva
+              isOpen={isFinalizarReservaOpen}
+              onClose={() => setFinalizarReservaOpen(false)} />
           </div>
         ) : (
           <p>Loading...</p>
