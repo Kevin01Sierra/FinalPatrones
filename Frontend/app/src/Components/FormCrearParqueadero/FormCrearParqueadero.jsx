@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './FormCrearParqueadero.css'
 
 function FormCrearParqueadero() {
-    const URL_OBTENER_CIUDADES = "http://localhost:3241/obtenerCiudades"
-    const URL_OBTENER_TIPOS_PARQUEADEROS = 'http://localhost:3241/tiposParqueadero'
+    const URL_OBTENER_CIUDADES = "https://backend-parqueadero-production.up.railway.app/obtenerCiudades"
+    const URL_OBTENER_TIPOS_PARQUEADEROS = 'https://backend-parqueadero-production.up.railway.app/tiposParqueadero'
     const requestOptions = {
                     method: "GET",
                     redirect: "follow"
@@ -82,7 +82,7 @@ function FormCrearParqueadero() {
                 redirect: "follow"
             };
 
-            const response = await fetch("http://localhost:3241/guardarParqueadero", requestOptions);
+            const response = await fetch("https://backend-parqueadero-production.up.railway.app/guardarParqueadero", requestOptions);
             const result = await response.json();
             console.log('Response from server:', result);
 

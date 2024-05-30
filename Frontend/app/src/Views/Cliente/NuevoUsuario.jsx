@@ -30,7 +30,7 @@ function NuevoUsuario() {
           redirect: "follow"
         };
 
-        const response = await fetch("http://localhost:3241/obtenerCiudades", requestOptions);
+        const response = await fetch("https://backend-parqueadero-production.up.railway.app/obtenerCiudades", requestOptions);
         const result = await response.json();
         setCities(result.data);
         
@@ -63,7 +63,7 @@ function NuevoUsuario() {
         redirect: "follow"
       };
 
-      const response = await fetch("http://localhost:3241/parqueaderoCiudad", requestOptions);
+      const response = await fetch("https://backend-parqueadero-production.up.railway.app/parqueaderoCiudad", requestOptions);
       const result = await response.json();
 
       const mappedParqueaderos = result.data.map(parqueadero => {
@@ -103,9 +103,43 @@ function NuevoUsuario() {
     }
   };
 
+  const fetchParqueaderoDetails = async (parqueaderoId) => {
+    try {
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      const raw = JSON.stringify({
+        "parqueadero_id": parqueaderoId
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+      };
+
+      const response = await fetch("https://backend-parqueadero-production.up.railway.app/obtenerParqueadero", requestOptions);
+      const result = await response.json();
+      
+      const { data } = result;
+
+      const updatedParqueadero = {
+        ...data,
+        cupo_disponible_carro: data.cupo_carro_total - data.cupo_uti_carro,
+        cupo_disponible_moto: data.cupo_moto_total - data.cupo_uti_moto,
+        cupo_disponible_bici: data.cupo_bici_total - data.cupo_uti_bici
+      };
+
+      setSelectedParqueadero(updatedParqueadero);
+      setParqueaderoOpen(true);
+    } catch (error) {
+      console.error('Error fetching parqueadero details:', error);
+    }
+  };
+
   const handleMarkerClick = (parqueadero) => {
-    setSelectedParqueadero(parqueadero);
-    setParqueaderoOpen(true);
+    fetchParqueaderoDetails(parqueadero.id);
   };
 
   return (

@@ -7,7 +7,7 @@ import FinalizarReserva from './ReservarCupos/FinalizarReserva/FinalizarReserva'
 
 const fetchParkingLot = async (parkingLotId) => {
   try {
-    const response = await fetch('http://localhost:3241/obtenerParqueadero', {
+    const response = await fetch('https://backend-parqueadero-production.up.railway.app/obtenerParqueadero', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -96,6 +96,9 @@ const ParkingManagement = () => {
             <ReservarCupoOnline
               isOpen={isReservaONOpen}
               onClose={() => setReservaONOpen(false)} />
+            <FinalizarReserva
+              isOpen={isFinalizarReservaOpen}
+              onClose={() => setFinalizarReservaOpen(false)} />
           </div>
         ) : (
           <p>Loading...</p>

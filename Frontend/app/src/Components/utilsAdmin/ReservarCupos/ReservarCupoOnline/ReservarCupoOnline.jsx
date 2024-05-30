@@ -21,7 +21,7 @@ export default function ReservarCupoOnline({ isOpen, onClose }) {
         setIsLoading(true);
 
         try {
-            const response = await fetch('http://localhost:3241/ocuparCupo', {
+            const response = await fetch('https://backend-parqueadero-production.up.railway.app/ocuparCupo', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
