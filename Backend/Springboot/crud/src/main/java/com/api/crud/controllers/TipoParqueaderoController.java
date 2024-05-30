@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
@@ -16,6 +17,7 @@ public class TipoParqueaderoController {
     @Autowired
     private TipoParqueaderoService tipoParqueaderoService;
 
+    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @GetMapping("/tiposParqueadero")
     public Map<String, Object> tiposParqueadero() {
         return Map.of("data", tipoParqueaderoService.obtenerTipoParqueadero(true), "msg", "Parqueaderos");
