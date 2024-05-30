@@ -2,7 +2,6 @@ package com.api.crud.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.api.crud.DTO.Request.ParqueaderoRequest;
 import com.api.crud.DTO.Response.ParqueaderoBasicoResponse;
 import com.api.crud.DTO.Response.ParqueaderoEstadisticasResponse;
@@ -30,14 +29,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ParqueaderoController {
     private static final Logger logger = Logger.getLogger(ParqueaderoController.class.getName());
 
-
     @Autowired
     private ParqueaderoService parqueaderoService;
 
     @Autowired
     private TipoParqueaderoService tipoParqueaderoService;
 
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
     @PostMapping("/parqueaderoCiudad")
     public Map<String, Object> parqueaderoCiudad(@RequestBody ParqueaderoRequest ciudad) {
         Vector<ParqueaderoModel> parquedaeros = parqueaderoService.obtenerParqueaderoCiudad(ciudad.getCiudad_fk());
@@ -82,7 +80,7 @@ public class ParqueaderoController {
         return Map.of("data", parqueaderos_disponibles, "msg", "Parqueaderos");
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
     @PostMapping("/parqueaderoCiudadBasico")
     public Map<String, Object> parqueaderoCiudadBasico(@RequestBody ParqueaderoRequest ciudad) {
         Vector<ParqueaderoModel> parquedaeros = parqueaderoService.obtenerParqueaderoCiudad(ciudad.getCiudad_fk());
@@ -96,7 +94,7 @@ public class ParqueaderoController {
         return Map.of("data", parqueaderos_disponibles, "msg", "Parqueaderos");
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
     @PostMapping("/obtenerParqueadero")
     public Map<String, Object> obtenerParqueadero(@RequestBody ParqueaderoRequest parqueadero) {
         Optional<ParqueaderoModel> parquedaeros = parqueaderoService
@@ -104,7 +102,7 @@ public class ParqueaderoController {
         return Map.of("data", parquedaeros.get(), "msg", "Parqueaderos");
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
     @PostMapping("/guardarParqueadero")
     public Map<String, Object> guardarParqueadero(@RequestBody ParqueaderoRequest parqueadero) {
         ParqueaderoModel parqueaderoGuardado = new ParqueaderoModel();
@@ -124,13 +122,13 @@ public class ParqueaderoController {
         parqueaderoService.guardarParqueadero(parqueaderoGuardado);
         return Map.of("data", parqueaderoGuardado, "msg", "Parqueaderos");
     }
-    
-    @CrossOrigin(origins = "http://localhost:5173")
+
+    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
     @GetMapping("/{id}/estadisticasParqueadero")
     public ResponseEntity<ParqueaderoEstadisticasResponse> obtenerEstadisticas(@PathVariable("id") long parqueaderoId) {
-        Optional<ParqueaderoEstadisticasResponse> response = parqueaderoService.obtenerEstadisticasParqueadero(parqueaderoId);
+        Optional<ParqueaderoEstadisticasResponse> response = parqueaderoService
+                .obtenerEstadisticasParqueadero(parqueaderoId);
 
-        
         if (response.isPresent()) {
             logger.info("Estadisticas found for parqueadero ID: " + parqueaderoId);
             return ResponseEntity.ok(response.get());
@@ -141,7 +139,7 @@ public class ParqueaderoController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
     @GetMapping("/estadisticasGlobal")
     public ResponseEntity<ParqueaderoEstadisticasResponse> getEstadisticasGlobales() {
         logger.info("Received request for global parqueadero estadisticas");

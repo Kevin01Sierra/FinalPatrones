@@ -1,4 +1,5 @@
 package com.api.crud.controllers;
+
 import java.util.Map;
 import java.util.Optional;
 
@@ -20,21 +21,22 @@ public class TarifaController {
     @Autowired
     private TarifaService tarifaService;
 
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
     @PostMapping("/tarifaParqueadero")
-    public Map<String, Object> tarifaParqueadero(@RequestBody TarifaRequest tarifa){
+    public Map<String, Object> tarifaParqueadero(@RequestBody TarifaRequest tarifa) {
         return Map.of("data", tarifaService.obtenerTarifaParqueadero(tarifa.getParqueadero_fk()), "msg", "Precios");
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
     @PostMapping("/tarifaParqueaderoVehiculo")
-    public Map<String, Object> tarifaParqueaderoVehiculo(@RequestBody TarifaRequest tarifa){
-        Optional<TarifaModel> tarifaParqueadero = tarifaService.obtenerTarifaParqueaderoVehiculo(tarifa.getParqueadero_fk(),tarifa.getVehiculo_fk());
-        if(tarifaParqueadero.isPresent()){
+    public Map<String, Object> tarifaParqueaderoVehiculo(@RequestBody TarifaRequest tarifa) {
+        Optional<TarifaModel> tarifaParqueadero = tarifaService
+                .obtenerTarifaParqueaderoVehiculo(tarifa.getParqueadero_fk(), tarifa.getVehiculo_fk());
+        if (tarifaParqueadero.isPresent()) {
             int precioFinal = CalculoPrecioService.CalcularPrecio(tarifaParqueadero.get(), tarifa.getHoras());
-            return Map.of("data", Map.of("Precio",precioFinal) , "msg", "Calculo de precio");
+            return Map.of("data", Map.of("Precio", precioFinal), "msg", "Calculo de precio");
         }
         return Map.of("data", "", "msg", "Parqueadero o vehiculo no encontrado");
-        
+
     }
 }

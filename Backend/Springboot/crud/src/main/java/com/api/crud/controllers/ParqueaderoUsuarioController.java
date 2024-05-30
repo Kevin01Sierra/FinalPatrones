@@ -19,9 +19,9 @@ public class ParqueaderoUsuarioController {
     @Autowired
     private ParqueaderoUsuarioService parqueaderoUsuarioService;
 
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
     @PostMapping("/parqueaderoAdmi")
-    public Map<String, Object> parqueaderoAdmi(@RequestBody UsuarioRequest usuario){
+    public Map<String, Object> parqueaderoAdmi(@RequestBody UsuarioRequest usuario) {
         ParqueaderoUsuarioResponse parquaderoInfo = new ParqueaderoUsuarioResponse();
         parquaderoInfo.setParqueadero(parqueaderoUsuarioService.obtenerIdParqueadero(usuario.getUsuario_id()));
         parquaderoInfo.setUsuario(usuario.getUsuario_id());

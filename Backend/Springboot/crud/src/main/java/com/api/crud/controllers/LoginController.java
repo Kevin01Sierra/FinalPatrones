@@ -43,7 +43,7 @@ public class LoginController {
     @Autowired
     private IpService ipService;
 
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody LoginRequest loginRequest) throws MessagingException {
         String usuario = loginRequest.getUsuario();
@@ -121,7 +121,7 @@ public class LoginController {
     @Autowired
     private TipoUsuarioUsuarioService tipoUsuarioUsuarioService;
 
-    @CrossOrigin(origins = "http://localhost:5173")
+    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
     @PostMapping("/loginCodigo")
     public Map<String, Object> loginCodigo(@RequestBody LoginCodigoRequest loginCodigoRequest,
             HttpServletRequest request) {
