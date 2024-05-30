@@ -3,8 +3,7 @@ package com.api.crud.controllers;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
 import com.api.crud.DTO.Request.*;
@@ -14,7 +13,6 @@ import com.api.crud.models.FacturaOfflineModel;
 import com.api.crud.services.Codigos;
 import com.api.crud.services.CupoService;
 import com.api.crud.services.IEmailService;
-// import com.api.crud.services.ManejarFechas;
 import com.api.crud.services.ManejarFechas;
 import com.api.crud.services.UsuarioService;
 import com.api.crud.services.models.EmailCupo;
@@ -98,6 +96,7 @@ public class CupoController {
         return Map.of("data",Map.of("valor_total",factura.getValorPagado()), "msg", "Error al finalizar el cupo");  
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/cancelarCupo")
     public Map<String, Object> cancelarCupo(@RequestBody CancelReservationRequest request) {
         boolean cancelado = cupoService.cancelarReserva(request.getCupoId());
