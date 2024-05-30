@@ -3,7 +3,7 @@ import './SidebarButton.css'
 function SidebarButton({ URL_BTN, URL_IMG, nombre }) {
 
   const handleClick = () => {
-    window.location.href = "http://localhost:5173" + URL_BTN;
+    window.location.href = "https://prueba3-rhby.vercel.app" + URL_BTN;
   };
 
   return (

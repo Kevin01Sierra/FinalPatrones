@@ -17,7 +17,7 @@ public class TipoParqueaderoController {
     @Autowired
     private TipoParqueaderoService tipoParqueaderoService;
 
-    @CrossOrigin(origins = "https://prueba2-hmin.vercel.app")
+    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @GetMapping("/tiposParqueadero")
     public Map<String, Object> tiposParqueadero() {
         return Map.of("data", tipoParqueaderoService.obtenerTipoParqueadero(true), "msg", "Parqueaderos");

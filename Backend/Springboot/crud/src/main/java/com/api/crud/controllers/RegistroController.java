@@ -38,7 +38,7 @@ public class RegistroController {
     @Autowired
     private IEmailService emailService;
 
-    @CrossOrigin(origins = "https://prueba2-hmin.vercel.app")
+    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/registroPersona")
     public Map<String, Object> registroPersona(@RequestBody RegistroPersonaRequest registroPersona)
             throws MessagingException {
