@@ -1,54 +1,144 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, BarElement, ArcElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
 import './Chart.css';
 
 ChartJS.register(BarElement, ArcElement, CategoryScale, LinearScale, Tooltip, Legend);
 
-const Chart = () => {
-    const dataBar1 = {
-        labels: ['Autos', 'Motos', 'Bicicletas'],
-        datasets: [
-            {
-                label: 'Disponible',
-                data: [25, 38, 45],
-                backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1,
-            },
-            {
-                label: 'Ocupado',
-                data: [75, 62, 55],
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1,
-            },
-        ],
-    };
+const Chart = ({ idParqueadero }) => {
+    const [cuposTotales, setCuposTotales] = useState(null);
+    const [cuposOcupados, setCuposOcupados] = useState(null);
+    const [cuposDisponibles, setCuposDisponibles] = useState(null);
+    const [ingresos, setIngresos] = useState(null);
+    const [dataGlobalCargada, setDataGlobalCargada] = useState(false);
 
-    const dataPie1 = {
-        labels: ['Clientes logeados', 'Visitan la aplicación'],
-        datasets: [
-            {
-                data: [33, 67],
-                backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)'],
-                borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
-                borderWidth: 1,
-            },
-        ],
-    };
+    const URL_ESTADISTICAS_GLOBALES = "http://localhost:3241/estadisticasGlobal"
+    const URL_ESTADISTICAS_ESPECIFICAS = "http://localhost:3241/" ///{id}/estadisticasParqueadero
 
-    const dataPie2 = {
-        labels: ['Libre', 'Ocupado'],
-        datasets: [
-            {
-                data: [44, 56],
-                backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)'],
-                borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
-                borderWidth: 1,
-            },
-        ],
-    };
+        useEffect(() => {
+            if (idParqueadero != null) {
+                const fetchData = async () => {
+                    try {
+                        const response = await fetch(URL_ESTADISTICAS_ESPECIFICAS + idParqueadero + "/estadisticasParqueadero");
+                        if (!response.ok) {
+                            throw new Error('Problema: ' + response.statusText);
+                        }
+                        const responseData = await response.json();
+                        setCuposTotales({
+                            labels: responseData.labels,
+                            datasets: [
+                                {
+                                    data: responseData.cuposTotales,
+                                    backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderWidth: 1
+                                },
+                            ],
+                        });
+                        setDataGlobalCargada(true);
+                        setCuposOcupados({
+                            labels: responseData.labels,
+                            datasets: [
+                                {
+                                    data: responseData.cuposOcupados,
+                                    backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderWidth: 1
+                                },
+                            ],
+                        });
+                        setCuposDisponibles({
+                            labels: responseData.labels,
+                            datasets: [
+                                {
+                                    data: responseData.cuposDisponibles,
+                                    backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderWidth: 1
+                                },
+                            ],
+                        });
+                        setIngresos({
+                            labels: responseData.labels,
+                            datasets: [
+                                {
+                                    data: responseData.ingresos,
+                                    backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderWidth: 1
+                                },
+                            ],
+                        });
+                    } catch (error) {
+                        console.error('Problema:', error);
+                    }
+                };
+                fetchData();      
+            }else{
+                const fetchData = async () => {
+                    try {
+                        const response = await fetch(URL_ESTADISTICAS_GLOBALES);
+                        if (!response.ok) {
+                            throw new Error('Problema: ' + response.statusText);
+                        }
+                        const responseData = await response.json();
+                        setCuposTotales({
+                            labels: responseData.labels,
+                            datasets: [
+                                {
+                                    data: responseData.cuposTotales,
+                                    backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderWidth: 1
+                                },
+                            ],
+                        });
+                        setDataGlobalCargada(true);
+                        setCuposOcupados({
+                            labels: responseData.labels,
+                            datasets: [
+                                {
+                                    data: responseData.cuposOcupados,
+                                    backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderWidth: 1
+                                },
+                            ],
+                        });
+                        setCuposDisponibles({
+                            labels: responseData.labels,
+                            datasets: [
+                                {
+                                    data: responseData.cuposDisponibles,
+                                    backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderWidth: 1
+                                },
+                            ],
+                        });
+                        setIngresos({
+                            labels: responseData.labels,
+                            datasets: [
+                                {
+                                    data: responseData.ingresos,
+                                    backgroundColor: ['rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(220, 80, 132, 0.5)'],
+                                    borderWidth: 1
+                                },
+                            ],
+                        });
+                    } catch (error) {
+                        console.error('Problema:', error);
+                    }
+                };
+                fetchData();
+}}, [idParqueadero]);
+            
+            
+
+
+
+
 
     const dataBar2 = {
         labels: ['Cali 2', 'Cali 1', 'Villavicencio 1', 'Barranquilla 1', 'Antioquia 2', 'Antioquia 1', 'Bogotá 3', 'Bogotá 2', 'Bogotá 1'],
@@ -70,35 +160,40 @@ const Chart = () => {
         ],
     };
 
+
     const handlePrint = () => {
         window.print();
     };
 
+    if (!dataGlobalCargada) {
+        return <p>Cargando datos...</p>;
+    }
+
     return (
-        <div className="dashboard-charts2">
+        <>
             <div className='dashboard-charts '>
-            <div className="chart">
-                <h2>Comportamiento por tipo de vehículo</h2>
-                <Bar data={dataBar1} options={{ responsive: true, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Comportamiento por tipo de vehículo' } } }} />
+                <div className="chart">
+                    <h2>Ingresos por tipo</h2>
+                    <Pie data={ingresos} options={{ responsive: true, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Ingresos' } } }} />
+                </div>
+                <div className="chart">
+                    <h2>Cupos totales</h2>
+                    <Pie data={cuposTotales} options={{ responsive: true, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Cupos totales' } } }} />
+                </div>
+                <div className="chart">
+                    <h2>Cupos Disponibles</h2>
+                    <Pie data={cuposDisponibles} options={{ responsive: true, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Cupos Disponibles' } } }} />
+                </div>
+                <div className="chart">
+                    <h2>Cupos Ocupados</h2>
+                    <Pie data={cuposOcupados} options={{ responsive: true, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Cupos Ocupados' } } }} />
+                </div>
             </div>
-            <div className="chart">
-                <h2>Comportamiento de la aplicación</h2>
-                <Pie data={dataPie1} options={{ responsive: true, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Comportamiento de la aplicación' } } }} />
-            </div>
-            <div className="chart">
-                <h2>Ocupado vs libre</h2>
-                <Pie data={dataPie2} options={{ responsive: true, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Ocupado vs libre' } } }} />
-            </div>
-            <div className="chart">
-                <h2>Disponibilidad vs Ocupado</h2>
-                <Bar data={dataBar2} options={{ responsive: true, plugins: { legend: { position: 'top' }, title: { display: true, text: 'Disponibilidad vs Ocupado' } } }} />
-            </div>
-            </div>
-            
+
             <div className="print-button-container">
                 <button className="print-button" onClick={handlePrint}>Imprimir</button>
             </div>
-        </div>
+        </>
     );
 };
 

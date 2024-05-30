@@ -18,6 +18,7 @@ function Impacto() {
   const [ciudadSeleccionada, setCiudadSeleccionada] = useState("");
   const [visibilidadSegundoSelect, setVisibilidadSegundoSelect] = useState(false);
   const [datosParqueaderos, setDatosParqueaderos] = useState(null);
+  const [idParqueaderoSeleccionado, setIdParqueaderoSeleccionado] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,7 +60,7 @@ function Impacto() {
   }
 
   const handleChangeParking = async (event) =>{
-    
+    setIdParqueaderoSeleccionado(event.target.value);
   }
 
   return (
@@ -90,8 +91,13 @@ function Impacto() {
           )}
 
         </div>
+        
+        {idParqueaderoSeleccionado !== null ? (
+        <Chart idParqueadero={idParqueaderoSeleccionado}></Chart>
+        ) : (
         <Chart></Chart>
-      </div>
+        )}
+      </div>{console.log(idParqueaderoSeleccionado)}
     </>
   );
 }
