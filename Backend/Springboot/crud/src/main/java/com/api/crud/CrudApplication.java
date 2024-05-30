@@ -19,14 +19,18 @@ public class CrudApplication {
 	}
 
 	@Configuration
-	public static class Myconfiguration {
+	public class WebConfig {
+
 		@Bean
 		public WebMvcConfigurer corsConfigurer() {
 			return new WebMvcConfigurer() {
 				@Override
 				public void addCorsMappings(CorsRegistry registry) {
 					registry.addMapping("/**")
-							.allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
+							.allowedOrigins("https://prueba3-rhby.vercel.app")
+							.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+							.allowedHeaders("*")
+							.allowCredentials(true);
 				}
 			};
 		}

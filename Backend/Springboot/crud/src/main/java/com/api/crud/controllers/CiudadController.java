@@ -3,7 +3,6 @@ package com.api.crud.controllers;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,13 +20,11 @@ public class CiudadController {
     @Autowired
     private CiudadService ciudadService;
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @GetMapping("/obtenerCiudades")
     public Map<String, Object> obenerCiudades() {
         return Map.of("data", ciudadService.obtenerCiudades(true), "msg", "Ciudades");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/crearCiudad")
     public Map<String, Object> crearCiudad(@RequestBody CiudadRequest ciudad) {
         CiudadModel ciudadNueva = new CiudadModel();

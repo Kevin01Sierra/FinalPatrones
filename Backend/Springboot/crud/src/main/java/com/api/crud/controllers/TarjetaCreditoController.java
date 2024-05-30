@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +34,6 @@ public class TarjetaCreditoController {
     @Autowired
     private IEmailService emailService;
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/guardarTarjeta")
     public Map<String, Object> guardarTarjeta(@RequestBody TarjetaRequest tarjeta) throws MessagingException {
         TarjetaCreditoModel tarjetaCredito = new TarjetaCreditoModel();
@@ -56,7 +54,6 @@ public class TarjetaCreditoController {
         return Map.of("data", tarjetaCredito, "msg", "Tarjeta agregada");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/tarjetaUsuario")
     public Map<String, Object> tarjetaUsuario(@RequestBody TarjetaRequest tarjeta) {
         Vector<TarjetaCreditoModel> tarjetas = tarjetaCreditoService.obtenerTarjetas(tarjeta.getUsuario());

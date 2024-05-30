@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,13 +20,11 @@ public class TarifaController {
     @Autowired
     private TarifaService tarifaService;
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/tarifaParqueadero")
     public Map<String, Object> tarifaParqueadero(@RequestBody TarifaRequest tarifa) {
         return Map.of("data", tarifaService.obtenerTarifaParqueadero(tarifa.getParqueadero_fk()), "msg", "Precios");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/tarifaParqueaderoVehiculo")
     public Map<String, Object> tarifaParqueaderoVehiculo(@RequestBody TarifaRequest tarifa) {
         Optional<TarifaModel> tarifaParqueadero = tarifaService

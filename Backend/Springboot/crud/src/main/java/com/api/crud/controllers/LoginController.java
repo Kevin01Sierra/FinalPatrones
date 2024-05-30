@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.Vector;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +42,6 @@ public class LoginController {
     @Autowired
     private IpService ipService;
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody LoginRequest loginRequest) throws MessagingException {
         String usuario = loginRequest.getUsuario();
@@ -121,7 +119,6 @@ public class LoginController {
     @Autowired
     private TipoUsuarioUsuarioService tipoUsuarioUsuarioService;
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/loginCodigo")
     public Map<String, Object> loginCodigo(@RequestBody LoginCodigoRequest loginCodigoRequest,
             HttpServletRequest request) {

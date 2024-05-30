@@ -3,7 +3,6 @@ package com.api.crud.controllers;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +18,6 @@ public class ParqueaderoUsuarioController {
     @Autowired
     private ParqueaderoUsuarioService parqueaderoUsuarioService;
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/parqueaderoAdmi")
     public Map<String, Object> parqueaderoAdmi(@RequestBody UsuarioRequest usuario) {
         ParqueaderoUsuarioResponse parquaderoInfo = new ParqueaderoUsuarioResponse();

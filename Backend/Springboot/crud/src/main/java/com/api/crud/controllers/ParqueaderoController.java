@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +35,6 @@ public class ParqueaderoController {
     @Autowired
     private TipoParqueaderoService tipoParqueaderoService;
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app", methods = { RequestMethod.GET, RequestMethod.POST })
     @PostMapping("/parqueaderoCiudad")
     public Map<String, Object> parqueaderoCiudad(@RequestBody ParqueaderoRequest ciudad) {
         Vector<ParqueaderoModel> parquedaeros = parqueaderoService.obtenerParqueaderoCiudad(ciudad.getCiudad_fk());
@@ -81,7 +79,6 @@ public class ParqueaderoController {
         return Map.of("data", parqueaderos_disponibles, "msg", "Parqueaderos");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/parqueaderoCiudadBasico")
     public Map<String, Object> parqueaderoCiudadBasico(@RequestBody ParqueaderoRequest ciudad) {
         Vector<ParqueaderoModel> parquedaeros = parqueaderoService.obtenerParqueaderoCiudad(ciudad.getCiudad_fk());
@@ -95,7 +92,6 @@ public class ParqueaderoController {
         return Map.of("data", parqueaderos_disponibles, "msg", "Parqueaderos");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/obtenerParqueadero")
     public Map<String, Object> obtenerParqueadero(@RequestBody ParqueaderoRequest parqueadero) {
         Optional<ParqueaderoModel> parquedaeros = parqueaderoService
@@ -103,7 +99,6 @@ public class ParqueaderoController {
         return Map.of("data", parquedaeros.get(), "msg", "Parqueaderos");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/guardarParqueadero")
     public Map<String, Object> guardarParqueadero(@RequestBody ParqueaderoRequest parqueadero) {
         ParqueaderoModel parqueaderoGuardado = new ParqueaderoModel();
@@ -124,7 +119,6 @@ public class ParqueaderoController {
         return Map.of("data", parqueaderoGuardado, "msg", "Parqueaderos");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @GetMapping("/{id}/estadisticasParqueadero")
     public ResponseEntity<ParqueaderoEstadisticasResponse> obtenerEstadisticas(@PathVariable("id") long parqueaderoId) {
         Optional<ParqueaderoEstadisticasResponse> response = parqueaderoService
@@ -140,7 +134,6 @@ public class ParqueaderoController {
 
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @GetMapping("/estadisticasGlobal")
     public ResponseEntity<ParqueaderoEstadisticasResponse> getEstadisticasGlobales() {
         logger.info("Received request for global parqueadero estadisticas");

@@ -11,7 +11,6 @@ import com.api.crud.services.ManejarFechas;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +21,6 @@ public class CupoOfflineControler {
     @Autowired
     private CupoService cupoService;
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/reservarCupoOffline")
     public Map<String, Object> postMethodName(@RequestBody ReservarCupoOfflineRequest request) {
         boolean disponibilidad = cupoService.verificarDisponibilidadCupo(request.getParqueaderoId(),
