@@ -26,7 +26,9 @@ function FormModificarParqueadero() {
     const [precioCarros, setPrecioCarros] = useState('');
     const [precioMotos, setPrecioMotos] = useState('');
     const [precioCiclas, setPrecioCiclas] = useState('');
-    const [precioMora, setPrecioMora] = useState('');
+    const [precioMoraCarro, setPrecioMoraCarro] = useState('');
+    const [precioMoraMoto, setPrecioMoraMoto] = useState('');
+    const [precioMoraBici, setPrecioMoraBici] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -109,7 +111,9 @@ function FormModificarParqueadero() {
             precio_normal_carro: precioCarros,
             precio_normal_moto: precioMotos,
             precio_normal_ciclas: precioCiclas,
-            precio_mora: precioMora
+            precio_mora_carro: precioMoraCarro,
+            precio_mora_moto: precioMoraMoto,
+            precio_mora_bici: precioMoraBici
         }
         console.log(data);
         fetch(URL_MODIFICAR_PARQUEADERO, {
@@ -225,10 +229,30 @@ function FormModificarParqueadero() {
                                 />
                             </div>
                             <div className='div-input-modificar-parqueadero'>
-                                <label>Precio para Mora:</label>
+                                <label>Precio para Mora Carro:</label>
                                 <input className='input-modificar-parqueadero'
                                     type="number"
-                                    value={precioMora}
+                                    value={precioMoraCarro}
+                                    placeholder='Ingrese el valor por mora'
+                                    onChange={(e) => setPrecioMora(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className='div-input-modificar-parqueadero'>
+                                <label>Precio para Mora Moto:</label>
+                                <input className='input-modificar-parqueadero'
+                                    type="number"
+                                    value={precioMoraMoto}
+                                    placeholder='Ingrese el valor por mora'
+                                    onChange={(e) => setPrecioMora(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className='div-input-modificar-parqueadero'>
+                                <label>Precio para Mora Bicicleta:</label>
+                                <input className='input-modificar-parqueadero'
+                                    type="number"
+                                    value={precioMoraBici}
                                     placeholder='Ingrese el valor por mora'
                                     onChange={(e) => setPrecioMora(e.target.value)}
                                     required
