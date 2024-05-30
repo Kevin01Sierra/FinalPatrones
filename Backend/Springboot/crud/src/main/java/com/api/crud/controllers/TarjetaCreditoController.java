@@ -35,7 +35,7 @@ public class TarjetaCreditoController {
     @Autowired
     private IEmailService emailService;
 
-    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
+    @CrossOrigin(origins = "https://prueba2-hmin.vercel.app")
     @PostMapping("/guardarTarjeta")
     public Map<String, Object> guardarTarjeta(@RequestBody TarjetaRequest tarjeta) throws MessagingException {
         TarjetaCreditoModel tarjetaCredito = new TarjetaCreditoModel();
@@ -56,7 +56,7 @@ public class TarjetaCreditoController {
         return Map.of("data", tarjetaCredito, "msg", "Tarjeta agregada");
     }
 
-    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
+    @CrossOrigin(origins = "https://prueba2-hmin.vercel.app")
     @PostMapping("/tarjetaUsuario")
     public Map<String, Object> tarjetaUsuario(@RequestBody TarjetaRequest tarjeta) {
         Vector<TarjetaCreditoModel> tarjetas = tarjetaCreditoService.obtenerTarjetas(tarjeta.getUsuario());

@@ -22,7 +22,7 @@ public class CupoOfflineControler {
     @Autowired
     private CupoService cupoService;
 
-    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
+    @CrossOrigin(origins = "https://prueba2-hmin.vercel.app")
     @PostMapping("/reservarCupoOffline")
     public Map<String, Object> postMethodName(@RequestBody ReservarCupoOfflineRequest request) {
         boolean disponibilidad = cupoService.verificarDisponibilidadCupo(request.getParqueaderoId(),

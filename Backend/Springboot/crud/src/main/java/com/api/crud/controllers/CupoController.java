@@ -34,7 +34,7 @@ public class CupoController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
+    @CrossOrigin(origins = "https://prueba2-hmin.vercel.app")
     @PostMapping("/reservarCupo")
     public Map<String, Object> reservarCupo(@RequestBody ReservarCupoRequest request) throws MessagingException {
         boolean disponibilidad = cupoService.verificarDisponibilidadCupo(request.getParqueaderoId(),
@@ -66,7 +66,7 @@ public class CupoController {
         return Map.of("data", "", "msg", "Sin disponibilidad");
     }
 
-    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
+    @CrossOrigin(origins = "https://prueba2-hmin.vercel.app")
     @PostMapping("/ocuparCupo")
     public Map<String, Object> ocuparCupo(@RequestBody OcuparRequest request) throws MessagingException {
         boolean ocupado = cupoService.ocuparCupo(request.getCodigo());
@@ -84,7 +84,7 @@ public class CupoController {
         }
     }
 
-    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
+    @CrossOrigin(origins = "https://prueba2-hmin.vercel.app")
     @PostMapping("/finalizarCupoOnline")
     public Map<String, Object> finalizarCupoOn(@RequestBody OcuparRequest request) {
         FacturaModel factura = cupoService.finalizarCupoOnline(request.getCodigo());
@@ -94,7 +94,7 @@ public class CupoController {
                 "msg", "Error al finalizar el cupo");
     }
 
-    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
+    @CrossOrigin(origins = "https://prueba2-hmin.vercel.app")
     @PostMapping("/finalizarCupoOffline")
     public Map<String, Object> finalizarCupoOff(@RequestBody OcuparRequest request) {
         FacturaOfflineModel factura = cupoService.finalizarCupoOffline(request.getCodigo());
@@ -111,7 +111,7 @@ public class CupoController {
         }
     }
 
-    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
+    @CrossOrigin(origins = "https://prueba2-hmin.vercel.app")
     @PostMapping("/verificarDisponibilidad")
     public Map<String, Object> verificarDisponibilidad(@RequestBody VerificarDisponibilidadRequest verificar) {
         boolean cupoDisponible = cupoService.verificarDisponibilidadCupo(verificar.getParqueaderoId(),

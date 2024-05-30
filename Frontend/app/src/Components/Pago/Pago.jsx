@@ -17,7 +17,7 @@ export default function Pago({ isOpen, onClose, data,nombreParqueadero ,tipoVehi
         if (isOpen && data) {
             const fetchTarifa = async () => {
                 try {
-                    const response = await fetch('http://localhost:3241/tarifaParqueaderoVehiculo', {
+                    const response = await fetch('https://backend-parqueadero-production.up.railway.app/tarifaParqueaderoVehiculo', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ export default function Pago({ isOpen, onClose, data,nombreParqueadero ,tipoVehi
 
             const fetchTarjetas = async () => {
                 try {
-                    const response = await fetch('http://localhost:3241/tarjetaUsuario', {
+                    const response = await fetch('https://backend-parqueadero-production.up.railway.app/tarjetaUsuario', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export default function Pago({ isOpen, onClose, data,nombreParqueadero ,tipoVehi
 
     const handlePago = async () => {
         try {
-            const response = await fetch('http://localhost:3241/reservarCupo', {
+            const response = await fetch('https://backend-parqueadero-production.up.railway.app/reservarCupo', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

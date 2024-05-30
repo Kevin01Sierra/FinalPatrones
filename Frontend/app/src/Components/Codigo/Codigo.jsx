@@ -20,7 +20,7 @@ export default function Codigo({ isOpen, UserId }) {
             body: raw
         };
         
-        fetch('http://localhost:3241/loginCodigo', requestOptions)
+        fetch('https://backend-parqueadero-production.up.railway.app/loginCodigo', requestOptions)
             .then(response => response.json())
             .then(data => {
                 if (data && data.success) {

@@ -21,7 +21,7 @@ const CrearParqueadero = () => {
                     redirect: "follow"
                 };
 
-                const response = await fetch("http://localhost:3241/obtenerCiudades", requestOptions);
+                const response = await fetch("https://backend-parqueadero-production.up.railway.app/obtenerCiudades", requestOptions);
                 const result = await response.json();
                 setCities(result.data);
             } catch (error) {
@@ -62,7 +62,7 @@ const CrearParqueadero = () => {
                 redirect: "follow"
             };
 
-            const response = await fetch("http://localhost:3241/guardarParqueadero", requestOptions);
+            const response = await fetch("https://backend-parqueadero-production.up.railway.app/guardarParqueadero", requestOptions);
             const result = await response.json();
             console.log('Response from server:', result);
 

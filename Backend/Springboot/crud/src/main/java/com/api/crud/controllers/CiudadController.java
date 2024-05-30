@@ -21,13 +21,13 @@ public class CiudadController {
     @Autowired
     private CiudadService ciudadService;
 
-    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
+    @CrossOrigin(origins = "https://prueba2-hmin.vercel.app")
     @GetMapping("/obtenerCiudades")
     public Map<String, Object> obenerCiudades() {
         return Map.of("data", ciudadService.obtenerCiudades(true), "msg", "Ciudades");
     }
 
-    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
+    @CrossOrigin(origins = "https://prueba2-hmin.vercel.app")
     @PostMapping("/crearCiudad")
     public Map<String, Object> crearCiudad(@RequestBody CiudadRequest ciudad) {
         CiudadModel ciudadNueva = new CiudadModel();

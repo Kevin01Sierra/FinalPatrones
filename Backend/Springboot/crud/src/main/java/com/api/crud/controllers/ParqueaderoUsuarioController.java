@@ -19,7 +19,7 @@ public class ParqueaderoUsuarioController {
     @Autowired
     private ParqueaderoUsuarioService parqueaderoUsuarioService;
 
-    @CrossOrigin(origins = "https://backend-parqueadero-production.up.railway.app")
+    @CrossOrigin(origins = "https://prueba2-hmin.vercel.app")
     @PostMapping("/parqueaderoAdmi")
     public Map<String, Object> parqueaderoAdmi(@RequestBody UsuarioRequest usuario) {
         ParqueaderoUsuarioResponse parquaderoInfo = new ParqueaderoUsuarioResponse();

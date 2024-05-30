@@ -4,7 +4,7 @@ import backgroundLogin from '../../assets/backgroundLogin.svg';
 import './LoginDiv.css';
 
 function LoginDiv() {
-  const URL_POST = 'http://localhost:3241/login';
+  const URL_POST = 'https://backend-parqueadero-production.up.railway.app/login';
   const URL_USER = '/user';
   const URL_ADMIN = '/admin';
   const URL_GERENTE = '/gerente';
@@ -83,7 +83,7 @@ function LoginDiv() {
         redirect: "follow"
       };
 
-      fetch("http://localhost:3241/loginCodigo", requestOptions)
+      fetch("https://backend-parqueadero-production.up.railway.app/loginCodigo", requestOptions)
         .then(response => {
           if (response.ok) {
             return response.json();
