@@ -12,7 +12,7 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "Cupo_Offline")
+@Table(name = "cupo_Offline")
 public class CupoOfflineModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

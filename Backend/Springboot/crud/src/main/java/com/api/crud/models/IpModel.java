@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "Ip")
+@Table(name = "ip")
 public class IpModel {
 
     @Id

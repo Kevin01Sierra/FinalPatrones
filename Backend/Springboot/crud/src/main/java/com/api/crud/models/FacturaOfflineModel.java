@@ -9,7 +9,7 @@ import java.util.Date;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "Factura_offline")
+@Table(name = "factura_offline")
 public class FacturaOfflineModel {
     
     @Id

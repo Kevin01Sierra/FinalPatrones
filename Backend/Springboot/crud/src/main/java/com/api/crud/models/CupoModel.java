@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name = "Cupo")
+@Table(name = "cupo")
 public class CupoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
