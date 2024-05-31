@@ -17,9 +17,10 @@ public class IpService {
     public void captureIp(IpCaptureRequest request) {
         IpModel ip = new IpModel();
         ip.setDireccionIp(request.getIpAddress());
-         ip.setUsuarioFk(request.getUserId());
-         ip.setFechaCreacion(new Timestamp(System.currentTimeMillis()));
-         ipRepository.save(ip);
+        ip.setUsuarioFk(request.getUserId());
+        ip.setFechaCreacion(new Timestamp(System.currentTimeMillis()));
+        ip.setActivo(true);
+        ipRepository.save(ip);
     }
 }
 
