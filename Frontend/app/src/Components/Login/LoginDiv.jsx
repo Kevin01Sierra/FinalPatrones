@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Logo from '../../assets/logo.png';
 import backgroundLogin from '../../assets/backgroundLogin.svg';
 import './LoginDiv.css';
+import { Link } from 'react-router-dom';
 
 function LoginDiv() {
   const URL_POST = 'https://backend-parqueadero-production.up.railway.app/login';
@@ -54,7 +55,7 @@ function LoginDiv() {
       .then(data => {
         if (data && data.data) {
           const id = data.data.id;
-          
+
           setUserId(id);
           console.log(id);
           localStorage.setItem('userId', id);
@@ -99,18 +100,20 @@ function LoginDiv() {
             const name = data.data.nombre;
             localStorage.setItem('userName', name);
             const userType = data.data.tipo;
-            let redirectUrl = URL_USER ;
+            localStorage.setItem('tipo', userType);
+            localStorage.setItem('userId', userId);
+            let redirectUrl = URL_USER;
 
             // Prioridad para los tipos 2 y 3
             let foundType = false;
 
             for (let type of userType) {
               if (type.id === 2) {
-                redirectUrl = URL_ADMIN + '/' ;
+                redirectUrl = URL_ADMIN ;
                 foundType = true;
                 break;
               } else if (type.id === 3) {
-                redirectUrl = URL_GERENTE + '/' ;
+                redirectUrl = URL_GERENTE;
                 foundType = true;
                 break;
               }
@@ -153,7 +156,10 @@ function LoginDiv() {
             </div>
             <button type='button' id='btnIngresar' onClick={login}>Ingresar</button>
           </form>
-          <p className='p'>Aún no tienes una cuenta? <a className='a' href={URL_REGISTRO}>Registrate</a></p>
+          <Link to='/registro' className='link'>
+
+            <p className='p'>Aún no tienes una cuenta? <a className='a' href={URL_REGISTRO}>Registrate</a></p>
+          </Link>
         </div>
       </div>
     </>
