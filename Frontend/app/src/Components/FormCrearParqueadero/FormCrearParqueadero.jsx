@@ -13,6 +13,9 @@ function FormCrearParqueadero() {
     const [numCars, setNumCars] = useState('');
     const [numMotorcycles, setNumMotorcycles] = useState('');
     const [numBicycles, setNumBicycles] = useState('');
+    const [numBicyclesC, setNumBicyclesC] = useState('');
+    const [numBicyclesM, setNumBicyclesM] = useState('');
+    const [numBicyclesB, setNumBicyclesB] = useState('');
     const [longitud, setLongitud] = useState('');
     const [latitud, setLatitud] = useState('');
     const [city, setCity] = useState('');
@@ -20,7 +23,9 @@ function FormCrearParqueadero() {
     const [precioCarros, setPrecioCarros] = useState('');
     const [precioMotos, setPrecioMotos] = useState('');
     const [precioCiclas, setPrecioCiclas] = useState('');
-    const [precioMora, setPrecioMora] = useState('');
+    const [precioMoraCarro, setPrecioMoraCarro] = useState('');
+    const [precioMoraMoto, setPrecioMoraMoto] = useState('');
+    const [precioMoraBici, setPrecioMoraBici] = useState('');
     const [tiposParqueadero, setTiposParqueadero] = useState([]);
 
     useEffect(() => {
@@ -66,7 +71,9 @@ function FormCrearParqueadero() {
             precio_normal_carro: precioCarros,
             precio_normal_moto: precioMotos,
             precio_normal_ciclas: precioCiclas,
-            precio_mora: precioMora,
+            precio_mora_carro: precioMoraCarro,
+            precio_mora_moto: precioMoraMoto,
+            precio_mora_bicicleta: precioMoraBici,
             tipo_fk: parkingType,
             longitud: parseFloat(longitud),
             latitud: parseFloat(latitud)
@@ -189,12 +196,32 @@ function FormCrearParqueadero() {
                         />
                     </div>
                     <div className='div-input-crear-parqueadero'>
-                        <label>Precio para Mora:</label>
+                        <label>Precio para Mora Carro:</label>
                         <input className='input-crear-parqueadero'
                             type="number"
-                            value={numBicycles}
-                            placeholder='Ingrese el valor por mora'
-                            onChange={(e) => setPrecioMora(e.target.value)}
+                            value={numBicyclesC}
+                            placeholder='Ingrese el valor por mora de carro'
+                            onChange={(e) => setPrecioMoraCarro(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className='div-input-crear-parqueadero'>
+                        <label>Precio para Mora Moto:</label>
+                        <input className='input-crear-parqueadero'
+                            type="number"
+                            value={numBicyclesM}
+                            placeholder='Ingrese el valor por mora de moto'
+                            onChange={(e) => setPrecioMoraMoto(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className='div-input-crear-parqueadero'>
+                        <label>Precio para Mora Bicicleta:</label>
+                        <input className='input-crear-parqueadero'
+                            type="number"
+                            value={numBicyclesB}
+                            placeholder='Ingrese el valor por mora de bicileta'
+                            onChange={(e) => setPrecioMoraBici(e.target.value)}
                             required
                         />
                     </div>

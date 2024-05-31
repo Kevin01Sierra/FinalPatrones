@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './NuevoUsuario.css';
 import Persona from '../../assets/Persona.svg';
 import { Map, Marker } from "pigeon-maps";
 import Parqueadero from './Parqueadero';
 import Historial from '../../Components/Historial/Historial';
+import ConfiguracionTarjetas from '../../Components/configuracionTarjetas/ConfiguracionTarjetas';
 
 function NuevoUsuario() {
   const [hue, setHue] = useState(0);
@@ -14,6 +16,7 @@ function NuevoUsuario() {
   const [cities, setCities] = useState([]);
   const [cityCoordinates, setCityCoordinates] = useState({});
   const [parqueaderos, setParqueaderos] = useState([]);
+  const [isTarjetasCreditoOpen, setTarjetasCreditoOpen] = useState(false);
   const nombre = localStorage.getItem('userName');
 
   const userData = {
@@ -167,8 +170,8 @@ function NuevoUsuario() {
               <p className='datos-usuario-p'>Número: {userData.paymentNumber}</p>
             </div>
             <div className='botones'>
-              <button className='Configuracion'>Configuración</button>
-              <button className='Salir'>Salir</button>
+              <button className='Configuracion' onClick={() => setTarjetasCreditoOpen(true)}>Configuración</button>
+              <Link to="/login" className='Salir'>Salir</Link>
             </div>
           </div>
         </header>
@@ -203,6 +206,7 @@ function NuevoUsuario() {
         </div>
         <Historial />
       </div>
+      {isTarjetasCreditoOpen && <ConfiguracionTarjetas onClose={() => setTarjetasCreditoOpen(false)} />}
     </div>
   );
 }

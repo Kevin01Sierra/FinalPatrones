@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import './TarjetaCredito.css';
 import { Link } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 export default function TarjetaCredito({ isOpen }) {
     if (!isOpen) return null;
 
@@ -10,12 +13,22 @@ export default function TarjetaCredito({ isOpen }) {
         expiry: '',
         cvc: ''
     });
+    const [expiryDate, setExpiryDate] = useState(null);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
         setCardInfo(prevState => ({
             ...prevState,
             [name]: value
+        }));
+    };
+
+    const handleDateChange = (date) => {
+        setExpiryDate(date);
+        const formattedDate = `${date.getMonth() + 1}/${date.getFullYear()}`;
+        setCardInfo(prevState => ({
+            ...prevState,
+            expiry: formattedDate
         }));
     };
 
@@ -136,14 +149,14 @@ export default function TarjetaCredito({ isOpen }) {
                             value={cardInfo.name}
                             onChange={handleChange}
                         />
-                        <input
-                            type="text"
+                        <DatePicker
+                            selected={expiryDate}
+                            onChange={handleDateChange}
+                            dateFormat="MM/yyyy"
+                            showMonthYearPicker
+                            minDate={new Date()}
                             className='input-Tarjeta'
-                            name="expiry"
-                            placeholder="Valid Thru (MM/YYYY)"
-                            value={cardInfo.expiry}
-                            onChange={handleChange}
-                            maxLength={7}
+                            placeholderText="Valid Thru (MM/YYYY)"
                         />
                         <input
                             type="text"

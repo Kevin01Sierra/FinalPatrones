@@ -45,6 +45,7 @@ function App() {
         <Route path="/Admin" element={<Admin />} />
         <Route path="/Gerente" element={<Impacto />} />
         
+        
       </Routes>
     </Router>
   );

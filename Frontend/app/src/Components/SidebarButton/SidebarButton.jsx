@@ -1,16 +1,15 @@
 import './SidebarButton.css'
-
+import { Link } from 'react-router-dom';
 function SidebarButton({ URL_BTN, URL_IMG, nombre }) {
 
-  const handleClick = () => {
-    window.location.href = "https://prueba3-rhby.vercel.app" + URL_BTN;
-  };
-
   return (
-      <div className="sidebarButton" onClick={handleClick}>
+    <Link to={URL_BTN}>
+      <div className="sidebarButton" >
         <img src={URL_IMG} alt="" />
           <p>{nombre}</p>
         </div>
+    </Link>
+      
   );
 }
 

@@ -1,13 +1,14 @@
 import { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Logo from '../../assets/logo.png'; // Placeholder para el logo
 import backgroundLogin from '../../assets/backgroundLogin.svg';
 import TarjetaCredito from './TarjetaCredito';
 import './RegistroDiv.css';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function RegistroDiv() {
   const URL_POST = 'https://backend-parqueadero-production.up.railway.app/registroPersona'; // Endpoint para confirmar datos
-  const navigate = useNavigate();
   const [nombre, setNombre] = useState('');
   const [identificacion, setIdentificacion] = useState('');
   const [correo, setCorreo] = useState('');
@@ -15,8 +16,16 @@ function RegistroDiv() {
 
   const registrar = (event) => {
     event.preventDefault();
+
+    // Validación del nombre
+    const nombreValidado = validarNombre(nombre);
+    if (!nombreValidado) {
+      toast.error('El nombre debe contener al menos 2 palabras de mínimo 3 caracteres cada una, separadas por un espacio.');
+      return;
+    }
+
     if (nombre.trim() === '' || identificacion.trim() === '' || correo.trim() === '') {
-      alert('Por favor complete todos los campos.');
+      toast.error('Por favor complete todos los campos.');
       return;
     }
 
@@ -41,15 +50,28 @@ function RegistroDiv() {
       })
       .then((data) => {
         setTarjetaOpen(true);
+        toast.success("Registro exitoso");
         console.log("Registro exitoso:", data);
       })
       .catch((error) => {
+        toast.error("Error en el registro");
         console.error("Error en el registro:", error);
       });
   };
 
+  // Función de validación del nombre
+  const validarNombre = (nombre) => {
+    const palabras = nombre.trim().split(' ');
+    if (palabras.length < 2) return false;
+    for (let palabra of palabras) {
+      if (palabra.length < 3) return false;
+    }
+    return true;
+  };
+
   return (
     <div id="container">
+      <ToastContainer />
       <div id="backgroundContainer">
         <img src={backgroundLogin} alt="Background" />
       </div>
@@ -72,7 +94,9 @@ function RegistroDiv() {
           </div>
           <button type="submit" id="btnRegistro">Registrarse</button>
         </form>
-        <p className="p">¿Ya tienes una cuenta? <a className="a" href="/">Inicia sesión</a></p>
+        <Link to='/login' className='link'>
+          <p className="p">¿Ya tienes una cuenta? Inicia sesión</p>
+        </Link>
         <TarjetaCredito isOpen={isTarjetaOpen} />
       </div>
     </div>
