@@ -70,7 +70,6 @@ public class RegistroController {
         usuarioModel.setFecha_creacion(ManejarFechas.obtenerFechaActual());
         usuarioModel.setActivo(true);
         userService.guardarUsuario(usuarioModel);
-        System.out.println("ENTRA A BUSCAR TIPO");
         Optional<UsuarioModel> usuarioAgregado = userService.buscarUsuario(usuario);
         TipoUsuarioUsuarioModel tipo = new TipoUsuarioUsuarioModel();
         tipo.setUsuario_fk(usuarioAgregado.get().getId());
