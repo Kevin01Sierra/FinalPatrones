@@ -41,7 +41,7 @@ public class ParqueaderoController {
     @Autowired
     private TarifaService tarifaService;
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app", methods = { RequestMethod.GET, RequestMethod.POST })
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app", methods = { RequestMethod.GET, RequestMethod.POST })
     @PostMapping("/parqueaderoCiudad")
     public Map<String, Object> parqueaderoCiudad(@RequestBody ParqueaderoRequest ciudad) {
         Vector<ParqueaderoModel> parquedaeros = parqueaderoService.obtenerParqueaderoCiudad(ciudad.getCiudad_fk());
@@ -86,7 +86,7 @@ public class ParqueaderoController {
         return Map.of("data", parqueaderos_disponibles, "msg", "Parqueaderos");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @PostMapping("/parqueaderoCiudadBasico")
     public Map<String, Object> parqueaderoCiudadBasico(@RequestBody ParqueaderoRequest ciudad) {
         Vector<ParqueaderoModel> parquedaeros = parqueaderoService.obtenerParqueaderoCiudad(ciudad.getCiudad_fk());
@@ -100,7 +100,7 @@ public class ParqueaderoController {
         return Map.of("data", parqueaderos_disponibles, "msg", "Parqueaderos");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @PostMapping("/obtenerParqueadero")
     public Map<String, Object> obtenerParqueadero(@RequestBody ParqueaderoRequest parqueadero) {
         Optional<ParqueaderoModel> parquedaeros = parqueaderoService
@@ -108,7 +108,7 @@ public class ParqueaderoController {
         return Map.of("data", parquedaeros.get(), "msg", "Parqueaderos");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @PostMapping("/guardarParqueadero")
     public Map<String, Object> guardarParqueadero(@RequestBody ParqueaderoRequest parqueadero) {
         ParqueaderoModel parqueaderoGuardado = new ParqueaderoModel();
@@ -129,7 +129,7 @@ public class ParqueaderoController {
         return Map.of("data", parqueaderoGuardado, "msg", "Parqueaderos");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @GetMapping("/{id}/estadisticasParqueadero")
     public ResponseEntity<ParqueaderoEstadisticasResponse> obtenerEstadisticas(@PathVariable("id") long parqueaderoId) {
         Optional<ParqueaderoEstadisticasResponse> response = parqueaderoService
@@ -145,7 +145,7 @@ public class ParqueaderoController {
 
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @GetMapping("/estadisticasGlobal")
     public ResponseEntity<ParqueaderoEstadisticasResponse> getEstadisticasGlobales() {
         logger.info("Received request for global parqueadero estadisticas");
@@ -153,9 +153,9 @@ public class ParqueaderoController {
         return ResponseEntity.ok(estadisticas);
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @GetMapping("/modificarParqueadero")
-    public Map<String, Object> modificarParqueadero(@RequestBody ModificarParqueaderoRequest parqueaderoModificar){
+    public Map<String, Object> modificarParqueadero(@RequestBody ModificarParqueaderoRequest parqueaderoModificar) {
         ParqueaderoModel parqueadero = parqueaderoService.obtenerParqueadero(parqueaderoModificar.getId()).get();
         parqueadero.setNombre(parqueaderoModificar.getNombre());
         parqueadero.setCupo_bici_total(parqueaderoModificar.getCupo_bici_total());
@@ -165,10 +165,13 @@ public class ParqueaderoController {
         parqueadero.setLatitud(parqueaderoModificar.getLatitud());
         parqueaderoService.guardarParqueadero(parqueadero);
 
-        tarifaService.modificarTarifaPersonalizada("CARRO",parqueaderoModificar.getId(), parqueaderoModificar.getPrecio_normal_carro(),parqueaderoModificar.getPrecio_mora_carro());
-        tarifaService.modificarTarifaPersonalizada("MOTO",parqueaderoModificar.getId(), parqueaderoModificar.getPrecio_normal_moto(),parqueaderoModificar.getPrecio_mora_moto());
-        tarifaService.modificarTarifaPersonalizada("BICICLETA",parqueaderoModificar.getId(), parqueaderoModificar.getPrecio_normal_ciclas(),parqueaderoModificar.getPrecio_mora_bici());
-        return Map.of("data", Map.of("estado",true), "msg", "Parqueaderos");
+        tarifaService.modificarTarifaPersonalizada("CARRO", parqueaderoModificar.getId(),
+                parqueaderoModificar.getPrecio_normal_carro(), parqueaderoModificar.getPrecio_mora_carro());
+        tarifaService.modificarTarifaPersonalizada("MOTO", parqueaderoModificar.getId(),
+                parqueaderoModificar.getPrecio_normal_moto(), parqueaderoModificar.getPrecio_mora_moto());
+        tarifaService.modificarTarifaPersonalizada("BICICLETA", parqueaderoModificar.getId(),
+                parqueaderoModificar.getPrecio_normal_ciclas(), parqueaderoModificar.getPrecio_mora_bici());
+        return Map.of("data", Map.of("estado", true), "msg", "Parqueaderos");
     }
 
 }

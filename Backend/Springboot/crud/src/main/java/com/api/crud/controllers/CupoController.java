@@ -51,7 +51,7 @@ public class CupoController {
     @Autowired
     private TarifaService tarifaService;
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @PostMapping("/reservarCupo")
     public Map<String, Object> reservarCupo(@RequestBody ReservarCupoRequest request) throws MessagingException {
         boolean disponibilidad = cupoService.verificarDisponibilidadCupo(request.getParqueaderoId(),
@@ -83,7 +83,7 @@ public class CupoController {
         return Map.of("data", "", "msg", "Sin disponibilidad");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @PostMapping("/ocuparCupo")
     public Map<String, Object> ocuparCupo(@RequestBody OcuparRequest request) throws MessagingException {
         boolean ocupado = cupoService.ocuparCupo(request.getCodigo());
@@ -101,7 +101,7 @@ public class CupoController {
         }
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @PostMapping("/finalizarCupoOnline")
     public Map<String, Object> finalizarCupoOn(@RequestBody OcuparRequest request) {
         FacturaModel factura = cupoService.finalizarCupoOnline(request.getCodigo());
@@ -111,7 +111,7 @@ public class CupoController {
                 "msg", "Error al finalizar el cupo");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @PostMapping("/finalizarCupoOffline")
     public Map<String, Object> finalizarCupoOff(@RequestBody OcuparRequest request) {
         FacturaOfflineModel factura = cupoService.finalizarCupoOffline(request.getCodigo());
@@ -129,7 +129,7 @@ public class CupoController {
         }
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @PostMapping("/verificarDisponibilidad")
     public Map<String, Object> verificarDisponibilidad(@RequestBody VerificarDisponibilidadRequest verificar) {
         boolean cupoDisponible = cupoService.verificarDisponibilidadCupo(verificar.getParqueaderoId(),
@@ -138,20 +138,23 @@ public class CupoController {
 
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @PostMapping("/listaCupos")
     public Map<String, Object> listaCupos(@RequestBody UsuarioRequest usuario) {
         List<CupoModel> cupos = cupoService.buscarCupos(usuario.getUsuario_id());
         List<CuposUsuarioResponse> cuposUsuario = new ArrayList<>();
-        for(int i=0;i< cupos.size();i++){
+        for (int i = 0; i < cupos.size(); i++) {
             CuposUsuarioResponse cupoGuardar = new CuposUsuarioResponse();
-            ParqueaderoModel parqueadero = parqueaderoService.obtenerParqueadero(cupos.get(i).getParqueadero_fk()).get();
+            ParqueaderoModel parqueadero = parqueaderoService.obtenerParqueadero(cupos.get(i).getParqueadero_fk())
+                    .get();
             cupoGuardar.setCiudad(ciudadService.buscarNombreCiudad(parqueadero.getCiudad_fk()));
             cupoGuardar.setParqueadero(parqueaderoService.obtenerNombreParqueadero(parqueadero.getId()));
             cupoGuardar.setCupoId(cupos.get(i).getId());
             cupoGuardar.setCodigo(cupos.get(i).getCodigo());
             cupoGuardar.setEstado(cupos.get(i).getEstado().toString());
-            cupoGuardar.setMontoPagar(CalculoPrecioService.CalcularPrecio(tarifaService.obtenerTarifaParqueaderoVehiculo(cupos.get(i).getParqueadero_fk(), cupos.get(i).getVehiculo_fk()).get(), cupos.get(i).getHoras_pedidas()));
+            cupoGuardar.setMontoPagar(CalculoPrecioService.CalcularPrecio(tarifaService
+                    .obtenerTarifaParqueaderoVehiculo(cupos.get(i).getParqueadero_fk(), cupos.get(i).getVehiculo_fk())
+                    .get(), cupos.get(i).getHoras_pedidas()));
             cuposUsuario.add(cupoGuardar);
         }
         return Map.of("data", cuposUsuario, "msg", "Disponibilidad");

@@ -21,13 +21,13 @@ public class TarifaController {
     @Autowired
     private TarifaService tarifaService;
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @PostMapping("/tarifaParqueadero")
     public Map<String, Object> tarifaParqueadero(@RequestBody TarifaRequest tarifa) {
         return Map.of("data", tarifaService.obtenerTarifaParqueadero(tarifa.getParqueadero_fk()), "msg", "Precios");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @PostMapping("/tarifaParqueaderoVehiculo")
     public Map<String, Object> tarifaParqueaderoVehiculo(@RequestBody TarifaRequest tarifa) {
         Optional<TarifaModel> tarifaParqueadero = tarifaService

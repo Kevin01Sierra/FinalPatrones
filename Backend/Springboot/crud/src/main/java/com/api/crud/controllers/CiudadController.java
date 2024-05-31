@@ -21,13 +21,13 @@ public class CiudadController {
     @Autowired
     private CiudadService ciudadService;
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @GetMapping("/obtenerCiudades")
     public Map<String, Object> obenerCiudades() {
         return Map.of("data", ciudadService.obtenerCiudades(true), "msg", "Ciudades");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @PostMapping("/crearCiudad")
     public Map<String, Object> crearCiudad(@RequestBody CiudadRequest ciudad) {
         CiudadModel ciudadNueva = new CiudadModel();
@@ -39,14 +39,14 @@ public class CiudadController {
         return Map.of("data", ciudadService.guardarCiudad(ciudadNueva), "msg", "Ciudad creada");
     }
 
-    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @CrossOrigin(origins = "https://fourparks-one.vercel.app")
     @PostMapping("/modificarCiudad")
     public Map<String, Object> modificarCiudad(@RequestBody CiudadRequest ciudadModificar) {
-        CiudadModel ciudad  = ciudadService.buscarCiudad(ciudadModificar.getId()).get();
+        CiudadModel ciudad = ciudadService.buscarCiudad(ciudadModificar.getId()).get();
         ciudad.setLatitud(ciudadModificar.getLatitud());
         ciudad.setLongitud(ciudadModificar.getLongitud());
         ciudad.setNombre(ciudadModificar.getNombre());
         ciudadService.guardarCiudad(ciudad);
-        return Map.of("data", Map.of("estado",true), "msg", "Ciudad creada");
+        return Map.of("data", Map.of("estado", true), "msg", "Ciudad creada");
     }
 }
