@@ -43,6 +43,7 @@ CREATE TABLE tipo_usuario_usuario (
     Id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     Tipo_usuario_fk BIGINT UNSIGNED,
     Usuario_fk BIGINT UNSIGNED,
+    Activo BOOLEAN NOT NULL DEFAULT TRUE,
     FOREIGN KEY (Tipo_usuario_fk) REFERENCES tipo_usuario(Id),
     FOREIGN KEY (Usuario_fk) REFERENCES usuario(Id)
 );
