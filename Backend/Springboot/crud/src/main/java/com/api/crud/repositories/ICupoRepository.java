@@ -34,6 +34,9 @@ public interface ICupoRepository extends JpaRepository<CupoModel, Long> {
 
     @Query(value = "SELECT * FROM CUPO WHERE estado = 'OCUPADO' AND parqueadero_fk = ?1 AND vehiculo_fk = ?2", nativeQuery = true)
     List<CupoModel> findByParqueaderoAndVehiculoOcupado(Long parqueaderoId, Long vehiculoId);
+
+    @Query(value = "SELECT * FROM CUPO WHERE usuario_fk = ?1", nativeQuery = true)
+    List<CupoModel> buscarByUsuario(Long usuario_fk);
     
 
 }

@@ -38,6 +38,10 @@ public class ParqueaderoService {
         return parqueaderoRepository.findById(parqueadero);
     }
 
+    public String obtenerNombreParqueadero(Long parqueadero) {
+        return parqueaderoRepository.findById(parqueadero).get().getNombre();
+    }
+
     public ParqueaderoModel guardarParqueadero(ParqueaderoModel parqueadero) {
         return parqueaderoRepository.save(parqueadero);
     }

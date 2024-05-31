@@ -1,5 +1,8 @@
 package com.api.crud.controllers;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,13 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.api.crud.DTO.Request.*;
+import com.api.crud.DTO.Response.CuposUsuarioResponse;
 import com.api.crud.models.CupoModel;
 import com.api.crud.models.FacturaModel;
 import com.api.crud.models.FacturaOfflineModel;
+import com.api.crud.models.ParqueaderoModel;
+import com.api.crud.models.TarifaModel;
+import com.api.crud.services.CalculoPrecioService;
+import com.api.crud.services.CiudadService;
 import com.api.crud.services.Codigos;
 import com.api.crud.services.CupoService;
 import com.api.crud.services.IEmailService;
 import com.api.crud.services.ManejarFechas;
+import com.api.crud.services.ParqueaderoService;
+import com.api.crud.services.TarifaService;
 import com.api.crud.services.UsuarioService;
 import com.api.crud.services.models.EmailCupo;
 
@@ -31,6 +41,15 @@ public class CupoController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private CiudadService ciudadService;
+
+    @Autowired
+    private ParqueaderoService parqueaderoService;
+
+    @Autowired
+    private TarifaService tarifaService;
 
     @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @PostMapping("/reservarCupo")
@@ -119,4 +138,22 @@ public class CupoController {
 
     }
 
+    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @PostMapping("/listaCupos")
+    public Map<String, Object> listaCupos(@RequestBody UsuarioRequest usuario) {
+        List<CupoModel> cupos = cupoService.buscarCupos(usuario.getUsuario_id());
+        List<CuposUsuarioResponse> cuposUsuario = new ArrayList<>();
+        for(int i=0;i< cupos.size();i++){
+            CuposUsuarioResponse cupoGuardar = new CuposUsuarioResponse();
+            ParqueaderoModel parqueadero = parqueaderoService.obtenerParqueadero(cupos.get(i).getParqueadero_fk()).get();
+            cupoGuardar.setCiudad(ciudadService.buscarNombreCiudad(parqueadero.getCiudad_fk()));
+            cupoGuardar.setParqueadero(parqueaderoService.obtenerNombreParqueadero(parqueadero.getId()));
+            cupoGuardar.setCupoId(cupos.get(i).getId());
+            cupoGuardar.setCodigo(cupos.get(i).getCodigo());
+            cupoGuardar.setEstado(cupos.get(i).getEstado().toString());
+            cupoGuardar.setMontoPagar(CalculoPrecioService.CalcularPrecio(tarifaService.obtenerTarifaParqueaderoVehiculo(cupos.get(i).getParqueadero_fk(), cupos.get(i).getVehiculo_fk()).get(), cupos.get(i).getHoras_pedidas()));
+            cuposUsuario.add(cupoGuardar);
+        }
+        return Map.of("data", cuposUsuario, "msg", "Disponibilidad");
+    }
 }

@@ -25,4 +25,8 @@ public class CiudadService {
     public Optional<CiudadModel> buscarCiudad(Long ciudad){
         return ciudadRepository.findById(ciudad);
     }
+
+    public String buscarNombreCiudad(Long ciudad){
+        return ciudadRepository.findById(ciudad).get().getNombre();
+    }
 }

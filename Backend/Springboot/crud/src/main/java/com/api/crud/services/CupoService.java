@@ -40,6 +40,7 @@ public class CupoService {
     @Autowired
     private FacturaService facturaService;
 
+    
     @Autowired
     private FacturaOfflineService facturaOfflineService;
 
@@ -53,6 +54,10 @@ public class CupoService {
 
     public CupoModel buscarCodigo(String codigo){
         return cupoRepository.findByCodigo(codigo).get();
+    }
+
+    public List<CupoModel> buscarCupos(Long usuario){
+        return cupoRepository.buscarByUsuario(usuario);
     }
 
     public boolean ocuparCupo(String codigo) {

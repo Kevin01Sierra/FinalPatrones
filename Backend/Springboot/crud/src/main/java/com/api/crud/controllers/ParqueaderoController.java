@@ -3,7 +3,7 @@ package com.api.crud.controllers;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.crud.DTO.Request.ParqueaderoRequest;
-import com.api.crud.DTO.Request.RequestModificarParqueadero;
+import com.api.crud.DTO.Request.ModificarParqueaderoRequest;
 import com.api.crud.DTO.Response.ParqueaderoBasicoResponse;
 import com.api.crud.DTO.Response.ParqueaderoEstadisticasResponse;
 import com.api.crud.DTO.Response.ParqueaderoResponse;
@@ -155,7 +155,7 @@ public class ParqueaderoController {
 
     @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
     @GetMapping("/modificarParqueadero")
-    public Map<String, Object> modificarParqueadero(@RequestBody RequestModificarParqueadero parqueaderoModificar){
+    public Map<String, Object> modificarParqueadero(@RequestBody ModificarParqueaderoRequest parqueaderoModificar){
         ParqueaderoModel parqueadero = parqueaderoService.obtenerParqueadero(parqueaderoModificar.getId()).get();
         parqueadero.setNombre(parqueaderoModificar.getNombre());
         parqueadero.setCupo_bici_total(parqueaderoModificar.getCupo_bici_total());
