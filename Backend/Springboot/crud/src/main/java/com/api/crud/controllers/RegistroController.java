@@ -70,14 +70,16 @@ public class RegistroController {
         usuarioModel.setFecha_creacion(ManejarFechas.obtenerFechaActual());
         usuarioModel.setActivo(true);
         userService.guardarUsuario(usuarioModel);
-
+        System.out.println("ENTRA A BUSCAR TIPO");
         Optional<UsuarioModel> usuarioAgregado = userService.buscarUsuario(usuario);
+        System.out.println("Encuentra el usuario");
         TipoUsuarioUsuarioModel tipo = new TipoUsuarioUsuarioModel();
         tipo.setUsuario_fk(usuarioAgregado.get().getId());
         Long idTipoCliente = tipoUsuarioService.obtenerIdCliente();
         tipo.setTipo_usuario_fk(idTipoCliente);
+        System.out.println(idTipoCliente);
         tipoUsuarioUsuarioService.guardarTipoUsuarioUsuario(tipo);
-
+        System.out.println("ENCONTRO TIPOS");
         EmailDTO email = new EmailDTO();
         email.setAsunto("Confirmación de cuenta");
         email.setDestinatario(correo);
