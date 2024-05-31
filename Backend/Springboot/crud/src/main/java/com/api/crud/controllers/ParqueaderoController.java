@@ -3,12 +3,15 @@ package com.api.crud.controllers;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.crud.DTO.Request.ParqueaderoRequest;
+import com.api.crud.DTO.Request.RequestModificarParqueadero;
 import com.api.crud.DTO.Response.ParqueaderoBasicoResponse;
 import com.api.crud.DTO.Response.ParqueaderoEstadisticasResponse;
 import com.api.crud.DTO.Response.ParqueaderoResponse;
 import com.api.crud.models.ParqueaderoModel;
+import com.api.crud.models.TarifaModel;
 import com.api.crud.services.ManejarFechas;
 import com.api.crud.services.ParqueaderoService;
+import com.api.crud.services.TarifaService;
 import com.api.crud.services.TipoParqueaderoService;
 import java.util.Optional;
 import java.util.Map;
@@ -35,6 +38,9 @@ public class ParqueaderoController {
 
     @Autowired
     private TipoParqueaderoService tipoParqueaderoService;
+
+    @Autowired
+    private TarifaService tarifaService;
 
     @CrossOrigin(origins = "https://prueba3-rhby.vercel.app", methods = { RequestMethod.GET, RequestMethod.POST })
     @PostMapping("/parqueaderoCiudad")
@@ -147,4 +153,20 @@ public class ParqueaderoController {
         ParqueaderoEstadisticasResponse estadisticas = parqueaderoService.obtenerEstadisticasGlobales();
         return ResponseEntity.ok(estadisticas);
     }
+
+    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @GetMapping("/modificarParqueadero")
+    public Map<String, Object> modificarParqueadero(@RequestBody RequestModificarParqueadero parqueaderoModificar){
+        ParqueaderoModel parqueadero = parqueaderoService.obtenerParqueadero(parqueaderoModificar.getId()).get();
+        parqueadero.setNombre(parqueaderoModificar.getNombre());
+        parqueadero.setCupo_bici_total(parqueaderoModificar.getCupo_bici_total());
+        parqueadero.setCupo_carro_total(parqueaderoModificar.getCupo_carro_total());
+        parqueadero.setCupo_moto_total(parqueaderoModificar.getCupo_moto_total());
+        parqueaderoService.guardarParqueadero(parqueadero);
+        tarifaService.modificarTarifaPersonalizada("CARRO",parqueaderoModificar.getId(), parqueaderoModificar.getPrecio_normal_carro(),parqueaderoModificar.getPrecio_mora_carro());
+        tarifaService.modificarTarifaPersonalizada("MOTO",parqueaderoModificar.getId(), parqueaderoModificar.getPrecio_normal_moto(),parqueaderoModificar.getPrecio_mora_moto());
+        tarifaService.modificarTarifaPersonalizada("BICICLETA",parqueaderoModificar.getId(), parqueaderoModificar.getPrecio_normal_ciclas(),parqueaderoModificar.getPrecio_mora_bici());
+        return Map.of("data", Map.of("estado",true), "msg", "Parqueaderos");
+    }
+
 }
