@@ -162,7 +162,10 @@ public class ParqueaderoController {
         parqueadero.setCupo_bici_total(parqueaderoModificar.getCupo_bici_total());
         parqueadero.setCupo_carro_total(parqueaderoModificar.getCupo_carro_total());
         parqueadero.setCupo_moto_total(parqueaderoModificar.getCupo_moto_total());
+        parqueadero.setLongitud(parqueaderoModificar.getLongitud());
+        parqueadero.setLatitud(parqueaderoModificar.getLatitud());
         parqueaderoService.guardarParqueadero(parqueadero);
+        
         tarifaService.modificarTarifaPersonalizada("CARRO",parqueaderoModificar.getId(), parqueaderoModificar.getPrecio_normal_carro(),parqueaderoModificar.getPrecio_mora_carro());
         tarifaService.modificarTarifaPersonalizada("MOTO",parqueaderoModificar.getId(), parqueaderoModificar.getPrecio_normal_moto(),parqueaderoModificar.getPrecio_mora_moto());
         tarifaService.modificarTarifaPersonalizada("BICICLETA",parqueaderoModificar.getId(), parqueaderoModificar.getPrecio_normal_ciclas(),parqueaderoModificar.getPrecio_mora_bici());
