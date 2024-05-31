@@ -1,6 +1,8 @@
 package com.api.crud.services;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +20,9 @@ public class CiudadService {
 
     public CiudadModel guardarCiudad(CiudadModel ciudad) {
         return ciudadRepository.save(ciudad);
+    }
+
+    public Optional<CiudadModel> buscarCiudad(Long ciudad){
+        return ciudadRepository.findById(ciudad);
     }
 }

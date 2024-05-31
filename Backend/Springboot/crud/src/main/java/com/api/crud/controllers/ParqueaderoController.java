@@ -8,7 +8,6 @@ import com.api.crud.DTO.Response.ParqueaderoBasicoResponse;
 import com.api.crud.DTO.Response.ParqueaderoEstadisticasResponse;
 import com.api.crud.DTO.Response.ParqueaderoResponse;
 import com.api.crud.models.ParqueaderoModel;
-import com.api.crud.models.TarifaModel;
 import com.api.crud.services.ManejarFechas;
 import com.api.crud.services.ParqueaderoService;
 import com.api.crud.services.TarifaService;
@@ -165,7 +164,7 @@ public class ParqueaderoController {
         parqueadero.setLongitud(parqueaderoModificar.getLongitud());
         parqueadero.setLatitud(parqueaderoModificar.getLatitud());
         parqueaderoService.guardarParqueadero(parqueadero);
-        
+
         tarifaService.modificarTarifaPersonalizada("CARRO",parqueaderoModificar.getId(), parqueaderoModificar.getPrecio_normal_carro(),parqueaderoModificar.getPrecio_mora_carro());
         tarifaService.modificarTarifaPersonalizada("MOTO",parqueaderoModificar.getId(), parqueaderoModificar.getPrecio_normal_moto(),parqueaderoModificar.getPrecio_mora_moto());
         tarifaService.modificarTarifaPersonalizada("BICICLETA",parqueaderoModificar.getId(), parqueaderoModificar.getPrecio_normal_ciclas(),parqueaderoModificar.getPrecio_mora_bici());

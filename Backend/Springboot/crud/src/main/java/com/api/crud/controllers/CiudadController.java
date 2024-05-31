@@ -38,4 +38,15 @@ public class CiudadController {
         ciudadNueva.setActivo(true);
         return Map.of("data", ciudadService.guardarCiudad(ciudadNueva), "msg", "Ciudad creada");
     }
+
+    @CrossOrigin(origins = "https://prueba3-rhby.vercel.app")
+    @PostMapping("/modificarCiudad")
+    public Map<String, Object> modificarCiudad(@RequestBody CiudadRequest ciudadModificar) {
+        CiudadModel ciudad  = ciudadService.buscarCiudad(ciudadModificar.getId()).get();
+        ciudad.setLatitud(ciudadModificar.getLatitud());
+        ciudad.setLongitud(ciudadModificar.getLongitud());
+        ciudad.setNombre(ciudadModificar.getNombre());
+        ciudadService.guardarCiudad(ciudad);
+        return Map.of("data", Map.of("estado",true), "msg", "Ciudad creada");
+    }
 }
