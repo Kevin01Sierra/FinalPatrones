@@ -77,7 +77,7 @@ public class RegistroController {
         tipo.setUsuario_fk(usuarioAgregado.get().getId());
         Long idTipoCliente = tipoUsuarioService.obtenerIdCliente();
         tipo.setTipo_usuario_fk(idTipoCliente);
-        System.out.println(idTipoCliente);
+        tipo.setActivo(true);
         tipoUsuarioUsuarioService.guardarTipoUsuarioUsuario(tipo);
         System.out.println("ENCONTRO TIPOS");
         EmailDTO email = new EmailDTO();
